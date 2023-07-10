@@ -248,6 +248,7 @@ double getResultFromAlg(vector<int>& arr/*,int option*/)
     ios_base::sync_with_stdio(false);
     //llamar a los 7 algoritmos de ordenamiento
     SelectionSort(arr);
+    SelectionSort(arr);
     time(&end);
     time_taken = double(end - start);
     return time_taken;
@@ -303,7 +304,32 @@ void Aleatorio(vector<int>& arr)
 }
 
 //set de datos ordenado aleatoriamente sin duplicados
+void AleatorioSinDuplicar(vector<int>& arr)
+{
+    random_device rd;
+    mt19937 gen(rd());
 
+    set<int> elementos;
+    vector<int> resultado;
+    
+    for (int i = arr.size() - 1; i >= 0; --i) 
+    {
+        uniform_int_distribution<int> dis(0, i);
+        int j = dis(gen);
+        swap(arr[i], arr[j]);
+        elementos.insert(arr[i]);
+    }
+    for (int elemento : arr) 
+    {
+        if (elementos.count(elemento) > 0) 
+        {
+            resultado.push_back(elemento);
+            elementos.erase(elemento);
+        }
+    }
+    arr = resultado;
+    
+}
 /*
 vector<int> AleatorioUnico(int rangoMin, int rangoMax,int tamanio)
 {
@@ -338,7 +364,7 @@ int main()
 
     int rangoMin=1;
     int rangoMax = 100;
-    int tamanio = 10; 
+    //int tamanio = 10; 
 
     //vector<int> arr = AleatorioUnico(rangoMin,rangoMax,tamanio);
     //int n = arr.size();
@@ -363,6 +389,7 @@ int main()
         cout << elemento << " ";
     }
     cout << endl;
+    //prueba aleatorio
     Aleatorio(arr);
     cout << "Conjunto ordenado aleatoriamente: ";
     for (int al : arr) 
@@ -370,39 +397,22 @@ int main()
         cout << al << " ";
     }
     cout << endl; 
+    //prueba aleatorio sin duplicar
+    AleatorioSinDuplicar(arr);
+    cout << "Conjunto ordenado aleatoriamente sin duplicar: ";
+    for (int alsind : arr) 
+    {
+        cout << alsind << " ";
+    }
+    cout << endl;
+
     /*
     cout << "Arreglo aleatorio generado: ";
     for (int num : arr) 
     {
         cout << num << " ";
     }
-    cout << std::endl;
-    */
-
-    /*ESTABA EMPEZANDO A HACER LOS SETS DE DATOS PERO NO ME SALIO A LA VERGA
-    vector <int> puntaje;
-    random_device random;
-    mt19937 gen(random());
-    uniform_int_distribution<int> dis(90000, 100000);
-    */
-
-
-    /* LA VERDAD NO SE COMO FUNCIONA ESTA MADRE
-    for (int i = 0; i < amount ; ++i) 
-    {
-        arrSorted.push_back(i+1);
-        arrReverse.push_back(amount-i);
-        if ( i == 0 ) 
-        {
-            random_value = 1 + rand() % (amount);
-            arr.push_back(random_value);
-        }
-        else 
-        {
-            random_value = 1 + rand() % (amount);
-            arr.push_back(random_value);
-        }
-    }
+    cout << endl;
     */
 
     
@@ -415,16 +425,26 @@ int main()
     //heapSort(arr);
 
     ///////////////////////
-    /*
-    IMPORTANTE: parte que se encarga de los resultados
+    /* 
+    //IMPORTANTE: parte que se encarga de los resultados
     unordered_map<string, double> results;
     results["SeleciontSort"] = getResultFromAlg(arr);
     vector<int> arr1,arr2; //incluir el segundo con el arreglo ordenado ascendente y descendentemente
     arr1.assign(arr.begin(), arr.end());
     //arr2.assign(arr.begin(), arr.end());
     int id = 1;
+    
+    
+    //probando si el algoritmo los ordena
+    for (int num : arr) 
+    {
+        cout<<"entro"<<endl;
+        cout << num << " ";
+    }
+    cout << endl;
+    
 
-   //resultados del algoritmo
+   //resultados del algoritmo en cuanto al tiempo
    for (const auto& pair : results) 
    {
         const string& key = pair.first;
@@ -433,7 +453,7 @@ int main()
         << endl;
         id++;
    }
-    */
+   */    
 
     return 0;
 }
