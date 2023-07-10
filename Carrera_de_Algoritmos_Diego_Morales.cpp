@@ -11,6 +11,7 @@
 #include <unordered_map>
 #include <ctime>
 #include <iomanip>
+#include <set>
 using namespace std;
 
 
@@ -251,36 +252,129 @@ double getResultFromAlg(vector<int>& arr/*,int option*/)
     return time_taken;
 }
 
+//comparacion de dos elementos para orden descendente
+bool compare(int a, int b) 
+{
+    return a > b;  // Orden descendente
+}
+
+//seleccion de ordenamiento
+void seleccion(vector<int>& arr, int op)
+{
+    switch (op)
+    {
+        case 1:
+            //ordenado de forma ascendente
+            sort(arr.begin(), arr.end()); 
+        break;
+        case 2:
+            //ordenado de forma descendente
+            sort(arr.begin(), arr.end(), compare);
+        break;
+            
+    }
+}
+
+//funcion que genere el set de datos ordenado aleatoriamente
+vector<int> Aleatorio(int rangoMin, int rangoMax,int tamanio)
+{
+    vector<int>arreglo;
+    set<int>elementos;
+
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<int> dis(rangoMin, rangoMax);
+
+    //generar los elementos unicos aleatorios dentro del rango
+    while(elementos.size() < tamanio)
+    {
+        int num = dis(gen);
+        elementos.insert(num);
+    }
+
+    //agregar los elementos al vector
+    for(int num : elementos)
+    {
+        arreglo.push_back(num);
+    }
+    return arreglo;
+} 
+
 int main()
 {
+    int op;
+    string opc;
 
-    cout << "Generando set de datos: " << endl;
+    int rangoMin=1;
+    int rangoMax = 100;
+    int tamanio = 10; 
 
-    vector <int> puntaje;
-    random_device random;
-    mt19937 gen(random());
-    uniform_int_distribution<int> dis(90000, 100000);
-    
-    vector<int> arr = {9, 5, 1, 4, 3, 2, 8, 7, 6};
-    int n = arr.size();
-    SelectionSort(arr); 
-    //BubbleSort(arr);
-    //InsertionSort(arr);
-    //shellSort(arr);
-    //MergeSort(arr, 0, n - 1);
-    //quickSort(arr,0,n - 1);
-    //heapSort(arr);
-    cout << "Array ordenado ";
+    vector<int> arr = Aleatorio(rangoMin,rangoMax,tamanio);
+    //int n = arr.size();
+    cout<<"Carreras de algoritmos"<<endl;
+    cout<<"1.Ascendente."<<endl;
+    cout<<"2.Descendente."<<endl;
+    cin>>op;
+    seleccion(arr,op);
+    if(op==1)
+    {
+        opc = "Ascendente";
+    }
+    else if(op == 2)
+    {
+        opc = "Descendente";
+    }
+    cout<<"Opcion elegida:"<<op<<"."<<opc<<endl;
+    cout << "Arreglo aleatorio generado: ";
     for (int num : arr) 
     {
         cout << num << " ";
     }
     cout << std::endl;
 
+    /*ESTABA EMPEZANDO A HACER LOS SETS DE DATOS PERO NO ME SALIO A LA VERGA
+    vector <int> puntaje;
+    random_device random;
+    mt19937 gen(random());
+    uniform_int_distribution<int> dis(90000, 100000);
+    */
+
+
+    /* LA VERDAD NO SE COMO FUNCIONA ESTA MADRE
+    for (int i = 0; i < amount ; ++i) 
+    {
+        arrSorted.push_back(i+1);
+        arrReverse.push_back(amount-i);
+        if ( i == 0 ) 
+        {
+            random_value = 1 + rand() % (amount);
+            arr.push_back(random_value);
+        }
+        else 
+        {
+            random_value = 1 + rand() % (amount);
+            arr.push_back(random_value);
+        }
+    }
+    */
+
+    
+    //SelectionSort(arr); 
+    //BubbleSort(arr);
+    //InsertionSort(arr);
+    //shellSort(arr);
+    //MergeSort(arr, 0, n - 1);
+    //quickSort(arr,0,n - 1);
+    //heapSort(arr);
+
+    
+    /*
+    IMPORTANTE: parte que se encarga de los resultados
     unordered_map<string, double> results;
     results["SeleciontSort"] = getResultFromAlg(arr);
     vector<int> arr1,arr2; //incluir el segundo con el arreglo ordenado ascendente y descendentemente
     arr1.assign(arr.begin(), arr.end());
+    //arr2.assign(arr.begin(), arr.end());
     int id = 1;
 
    //resultados del algoritmo
@@ -292,7 +386,7 @@ int main()
         << endl;
         id++;
    }
-    
+    */
 
     return 0;
 }
