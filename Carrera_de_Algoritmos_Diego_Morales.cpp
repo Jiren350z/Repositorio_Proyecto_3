@@ -275,8 +275,28 @@ void seleccion(vector<int>& arr, int op)
     }
 }
 
-//funcion que genere el set de datos ordenado aleatoriamente
-vector<int> Aleatorio(int rangoMin, int rangoMax,int tamanio)
+//generar un conjunto aleatorio basado en rangos
+vector<int> generarConjuntoAleatorio(int rangoMin, int rangoMax) 
+{
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<int> dis(rangoMin, rangoMax);
+
+    int tamano = dis(gen);
+    vector<int> conjunto;
+
+    for(int i = 0; i < tamano; i++)
+    {
+        int elemento = dis(gen);
+        conjunto.push_back(elemento);
+    }
+
+    return conjunto;
+}
+//set de datos ordenado aleatoriamente sin duplicados
+
+/*
+vector<int> AleatorioUnico(int rangoMin, int rangoMax,int tamanio)
 {
     vector<int>arreglo;
     set<int>elementos;
@@ -298,7 +318,9 @@ vector<int> Aleatorio(int rangoMin, int rangoMax,int tamanio)
         arreglo.push_back(num);
     }
     return arreglo;
-} 
+}
+*/
+
 
 int main()
 {
@@ -309,8 +331,9 @@ int main()
     int rangoMax = 100;
     int tamanio = 10; 
 
-    vector<int> arr = Aleatorio(rangoMin,rangoMax,tamanio);
+    //vector<int> arr = AleatorioUnico(rangoMin,rangoMax,tamanio);
     //int n = arr.size();
+    vector<int> arr = generarConjuntoAleatorio(rangoMin,rangoMax);
     cout<<"Carreras de algoritmos"<<endl;
     cout<<"1.Ascendente."<<endl;
     cout<<"2.Descendente."<<endl;
@@ -325,12 +348,20 @@ int main()
         opc = "Descendente";
     }
     cout<<"Opcion elegida:"<<op<<"."<<opc<<endl;
+    cout << "Conjunto aleatorio generado: ";
+    for (int elemento : arr) 
+    {
+        cout << elemento << " ";
+    }
+    cout << endl; 
+    /*
     cout << "Arreglo aleatorio generado: ";
     for (int num : arr) 
     {
         cout << num << " ";
     }
     cout << std::endl;
+    */
 
     /*ESTABA EMPEZANDO A HACER LOS SETS DE DATOS PERO NO ME SALIO A LA VERGA
     vector <int> puntaje;
