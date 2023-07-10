@@ -9,6 +9,8 @@
 #include <algorithm>
 #include <random>
 #include <unordered_map>
+#include <ctime>
+#include <iomanip>
 using namespace std;
 
 
@@ -159,40 +161,91 @@ void MergeSort(vector<int>& arr, int left, int right)
 }
 
 // Función para colocar el pivote en su posición correcta
-int partition(std::vector<int>& arr, int low, int high) {
+int partition(vector<int>& arr, int low, int high) 
+{
     int pivot = arr[high];
     int i = low - 1;
 
-    for (int j = low; j <= high - 1; j++) {
-        if (arr[j] < pivot) {
+    for (int j = low; j <= high - 1; j++) 
+    {
+        if (arr[j] < pivot) 
+        {
             i++;
-            std::swap(arr[i], arr[j]);
+            swap(arr[i], arr[j]);
         }
     }
-
-    std::swap(arr[i + 1], arr[high]);
+    swap(arr[i + 1], arr[high]);
     return i + 1;
 }
 
 // Función recursiva para ordenar el arreglo utilizando Quick Sort
-void quickSort(std::vector<int>& arr, int low, int high) {
-    if (low < high) {
+void quickSort(vector<int>& arr, int low, int high) 
+{
+    if (low < high) 
+    {
         int pivotIndex = partition(arr, low, high);
 
-        // Ordenar los elementos antes y después del pivote
+        //Ordenar los elementos antes y después del pivote
         quickSort(arr, low, pivotIndex - 1);
         quickSort(arr, pivotIndex + 1, high);
     }
 }
 
+// Función para realizar el ajuste descendente (sift-down) en un subárbol
+void siftDown(vector<int>& arr, int n, int i) 
+{
+    int largest = i;            //inicialmente, asumimos que el nodo actual es el más grande
+    int left = 2 * i + 1;      //indice del hijo izquierdo
+    int right = 2 * i + 2;    //indice del hijo derecho
+
+    //Si el hijo izquierdo es más grande que la raíz
+    if (left < n && arr[left] > arr[largest]) 
+    {
+        largest = left;
+    }
+
+    // Si el hijo derecho es más grande que el más grande encontrado hasta ahora
+    if (right < n && arr[right] > arr[largest]) 
+    {
+        largest = right;
+    }
+
+    // Si el más grande no es la raíz actual, realizar el intercambio y continuar ajustando descendente
+    if (largest != i) 
+    {
+        swap(arr[i], arr[largest]);
+        siftDown(arr, n, largest);
+    }
+}
+
+// Función para ordenar el arreglo utilizando Heap Sort
+void heapSort(vector<int>& arr) 
+{
+    int n = arr.size();
+
+    // Construir el heap (reorganizar el arreglo)
+    for (int i = n / 2 - 1; i >= 0; i--) 
+    {
+        siftDown(arr, n, i);
+    }
+
+    // Extraer elementos uno por uno desde el heap y colocarlos al final del arreglo ordenado
+    for (int i = n - 1; i > 0; i--) 
+    {
+        swap(arr[0], arr[i]);
+        siftDown(arr, i, 0);
+    }
+}
+
 //determina el resultado en tiempo de los algoritmos de ordenamiento
-double getResultFromAlg(vector<int>& arr,int option) 
+double getResultFromAlg(vector<int>& arr/*,int option*/) 
 {
     time_t start, end;
     double time_taken;
     time(&start);
     ios_base::sync_with_stdio(false);
     //llamar a los 7 algoritmos de ordenamiento
+    SelectionSort(arr);
     time(&end);
     time_taken = double(end - start);
     return time_taken;
@@ -201,26 +254,36 @@ double getResultFromAlg(vector<int>& arr,int option)
 int main()
 {
 
-    unordered_map<string, double> results;
-
     cout << "Generando set de datos: " << endl;
 
     vector <int> puntaje;
     random_device random;
     mt19937 gen(random());
     uniform_int_distribution<int> dis(90000, 100000);
-
-
+    
     vector<int> arr = {9, 5, 1, 4, 3, 2, 8, 7, 6};
-    BubbleSort(arr);
-    cout << "Array ordenado bublesort: ";
+    int n = arr.size();
+    SelectionSort(arr); 
+    //BubbleSort(arr);
+    //InsertionSort(arr);
+    //shellSort(arr);
+    //MergeSort(arr, 0, n - 1);
+    //quickSort(arr,0,n - 1);
+    //heapSort(arr);
+    cout << "Array ordenado ";
     for (int num : arr) 
     {
         cout << num << " ";
     }
     cout << std::endl;
 
-   /* resultados del algoritmo
+    unordered_map<string, double> results;
+    results["SeleciontSort"] = getResultFromAlg(arr);
+    vector<int> arr1,arr2; //incluir el segundo con el arreglo ordenado ascendente y descendentemente
+    arr1.assign(arr.begin(), arr.end());
+    int id = 1;
+
+   //resultados del algoritmo
    for (const auto& pair : results) 
    {
         const string& key = pair.first;
@@ -229,7 +292,7 @@ int main()
         << endl;
         id++;
    }
-    */
+    
 
     return 0;
 }
