@@ -12,6 +12,7 @@
 #include <ctime>
 #include <iomanip>
 #include <set>
+#include<random>
 using namespace std;
 
 
@@ -293,6 +294,14 @@ vector<int> generarConjuntoAleatorio(int rangoMin, int rangoMax)
 
     return conjunto;
 }
+//set de datos ordenado aleatoriamente
+void Aleatorio(vector<int>& arr) 
+{
+    random_device rd;
+    mt19937 gen(rd());
+    shuffle(arr.begin(), arr.end(), gen);
+}
+
 //set de datos ordenado aleatoriamente sin duplicados
 
 /*
@@ -353,6 +362,13 @@ int main()
     {
         cout << elemento << " ";
     }
+    cout << endl;
+    Aleatorio(arr);
+    cout << "Conjunto ordenado aleatoriamente: ";
+    for (int al : arr) 
+    {
+        cout << al << " ";
+    }
     cout << endl; 
     /*
     cout << "Arreglo aleatorio generado: ";
@@ -398,7 +414,7 @@ int main()
     //quickSort(arr,0,n - 1);
     //heapSort(arr);
 
-    
+    ///////////////////////
     /*
     IMPORTANTE: parte que se encarga de los resultados
     unordered_map<string, double> results;
