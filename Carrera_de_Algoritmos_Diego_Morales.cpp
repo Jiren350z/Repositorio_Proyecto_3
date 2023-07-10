@@ -64,7 +64,6 @@ void InsertionSort(vector<int>& arr)
     }
 }
 
-
 void shellSort(std::vector<int>& arr) 
 {
     int n = arr.size();
@@ -86,7 +85,6 @@ void shellSort(std::vector<int>& arr)
         gap /= 2;
     }
 }
-
 // Función para combinar dos subarreglos ordenados en un solo arreglo ordenado
 void merge(vector<int>& arr, int left, int middle, int right) 
 {
@@ -143,7 +141,6 @@ void merge(vector<int>& arr, int left, int middle, int right)
         k++;
     }
 }
-
 // Función recursiva para dividir y ordenar el arreglo en subarreglos más pequeños
 void MergeSort(vector<int>& arr, int left, int right) 
 {
@@ -161,7 +158,6 @@ void MergeSort(vector<int>& arr, int left, int right)
         merge(arr, left, middle, right);
     }
 }
-
 // Función para colocar el pivote en su posición correcta
 int partition(vector<int>& arr, int low, int high) 
 {
@@ -179,7 +175,6 @@ int partition(vector<int>& arr, int low, int high)
     swap(arr[i + 1], arr[high]);
     return i + 1;
 }
-
 // Función recursiva para ordenar el arreglo utilizando Quick Sort
 void quickSort(vector<int>& arr, int low, int high) 
 {
@@ -192,7 +187,6 @@ void quickSort(vector<int>& arr, int low, int high)
         quickSort(arr, pivotIndex + 1, high);
     }
 }
-
 // Función para realizar el ajuste descendente (sift-down) en un subárbol
 void siftDown(vector<int>& arr, int n, int i) 
 {
@@ -219,7 +213,6 @@ void siftDown(vector<int>& arr, int n, int i)
         siftDown(arr, n, largest);
     }
 }
-
 // Función para ordenar el arreglo utilizando Heap Sort
 void heapSort(vector<int>& arr) 
 {
@@ -276,7 +269,6 @@ void seleccion(vector<int>& arr, int op)
             
     }
 }
-
 //generar un conjunto aleatorio basado en rangos
 vector<int> generarConjuntoAleatorio(int rangoMin, int rangoMax) 
 {
@@ -302,7 +294,6 @@ void Aleatorio(vector<int>& arr)
     mt19937 gen(rd());
     shuffle(arr.begin(), arr.end(), gen);
 }
-
 //set de datos ordenado aleatoriamente sin duplicados
 void AleatorioSinDuplicar(vector<int>& arr)
 {
@@ -330,33 +321,31 @@ void AleatorioSinDuplicar(vector<int>& arr)
     arr = resultado;
     
 }
-/*
-vector<int> AleatorioUnico(int rangoMin, int rangoMax,int tamanio)
+//set de datos ordenado
+void Ordenado(vector<int>& arr, int op)
 {
-    vector<int>arreglo;
-    set<int>elementos;
-
-    random_device rd;
-    mt19937 gen(rd());
-    uniform_int_distribution<int> dis(rangoMin, rangoMax);
-
-    //generar los elementos unicos aleatorios dentro del rango
-    while(elementos.size() < tamanio)
+    if(op == 2)
     {
-        int num = dis(gen);
-        elementos.insert(num);
+        sort(arr.begin(), arr.end()); // Ordenar de forma ascendente
     }
-
-    //agregar los elementos al vector
-    for(int num : elementos)
+    else
     {
-        arreglo.push_back(num);
+        sort(arr.begin(), arr.end()); // Ordenar de forma descendente
     }
-    return arreglo;
+    
 }
-*/
-
-
+//set de datos inversamente ordenado
+void InversamenteOrdenado(vector<int>& arr, int op)
+{
+    if(op == 1)
+    {
+        sort(arr.rbegin(),arr.rend());// Ordenar de forma descendente
+    }
+    else
+    {
+        sort(arr.rbegin(),arr.rend());// Ordenar de forma descendente
+    }
+}
 int main()
 {
     int op;
@@ -405,7 +394,20 @@ int main()
         cout << alsind << " ";
     }
     cout << endl;
-
+    cout << "Conjunto ordenado: ";
+    Ordenado(arr,op);
+    for (int ord : arr) 
+    {
+        cout << ord << " ";
+    }
+    cout << endl;
+    cout << "Conjunto inversamente ordenado: ";
+    InversamenteOrdenado(arr,op);
+    for (int invord : arr) 
+    {
+        cout << invord << " ";
+    }
+    cout << endl;
     /*
     cout << "Arreglo aleatorio generado: ";
     for (int num : arr) 
@@ -457,3 +459,29 @@ int main()
 
     return 0;
 }
+
+/*
+vector<int> AleatorioUnico(int rangoMin, int rangoMax,int tamanio)
+{
+    vector<int>arreglo;
+    set<int>elementos;
+
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<int> dis(rangoMin, rangoMax);
+
+    //generar los elementos unicos aleatorios dentro del rango
+    while(elementos.size() < tamanio)
+    {
+        int num = dis(gen);
+        elementos.insert(num);
+    }
+
+    //agregar los elementos al vector
+    for(int num : elementos)
+    {
+        arreglo.push_back(num);
+    }
+    return arreglo;
+}
+*/
