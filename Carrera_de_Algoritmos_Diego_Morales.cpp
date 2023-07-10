@@ -15,6 +15,105 @@
 #include<random>
 using namespace std;
 
+//comparacion de dos elementos para orden descendente
+bool compare(int a, int b) 
+{
+    return a > b;  // Orden descendente
+}
+
+//seleccion de ordenamiento
+void seleccion(vector<int>& arr, int op)
+{
+    switch (op)
+    {
+        case 1:
+            //ordenado de forma ascendente
+            sort(arr.begin(), arr.end()); 
+        break;
+        case 2:
+            //ordenado de forma descendente
+            sort(arr.begin(), arr.end(), compare);
+        break;
+            
+    }
+}
+//generar un conjunto aleatorio basado en rangos
+vector<int> generarConjuntoAleatorio(int rangoMin, int rangoMax) 
+{
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<int> dis(rangoMin, rangoMax);
+
+    int tamano = dis(gen);
+    vector<int> conjunto;
+
+    for(int i = 0; i < tamano; i++)
+    {
+        int elemento = dis(gen);
+        conjunto.push_back(elemento);
+    }
+
+    return conjunto;
+}
+//set de datos ordenado aleatoriamente
+void Aleatorio(vector<int>& arr) 
+{
+    random_device rd;
+    mt19937 gen(rd());
+    shuffle(arr.begin(), arr.end(), gen);
+}
+//set de datos ordenado aleatoriamente sin duplicados
+void AleatorioSinDuplicar(vector<int>& arr)
+{
+    random_device rd;
+    mt19937 gen(rd());
+
+    set<int> elementos;
+    vector<int> resultado;
+    
+    for (int i = arr.size() - 1; i >= 0; --i) 
+    {
+        uniform_int_distribution<int> dis(0, i);
+        int j = dis(gen);
+        swap(arr[i], arr[j]);
+        elementos.insert(arr[i]);
+    }
+    for (int elemento : arr) 
+    {
+        if (elementos.count(elemento) > 0) 
+        {
+            resultado.push_back(elemento);
+            elementos.erase(elemento);
+        }
+    }
+    arr = resultado;
+    
+}
+//set de datos ordenado
+void Ordenado(vector<int>& arr, int op)
+{
+    if(op == 2)
+    {
+        sort(arr.begin(), arr.end()); // Ordenar de forma ascendente
+    }
+    else
+    {
+        sort(arr.begin(), arr.end()); // Ordenar de forma descendente
+    }
+    
+}
+//set de datos inversamente ordenado
+void InversamenteOrdenado(vector<int>& arr, int op)
+{
+    if(op == 1)
+    {
+        sort(arr.rbegin(),arr.rend());// Ordenar de forma descendente
+    }
+    else
+    {
+        sort(arr.rbegin(),arr.rend());// Ordenar de forma descendente
+    }
+}
 
 void SelectionSort(vector<int>& arr) 
 {
@@ -240,119 +339,20 @@ double getResultFromAlg(vector<int>& arr/*,int option*/)
     time(&start);
     ios_base::sync_with_stdio(false);
     //llamar a los 7 algoritmos de ordenamiento
-    SelectionSort(arr);
-    SelectionSort(arr);
+    cout << endl;
     time(&end);
     time_taken = double(end - start);
     return time_taken;
 }
 
-//comparacion de dos elementos para orden descendente
-bool compare(int a, int b) 
-{
-    return a > b;  // Orden descendente
-}
 
-//seleccion de ordenamiento
-void seleccion(vector<int>& arr, int op)
-{
-    switch (op)
-    {
-        case 1:
-            //ordenado de forma ascendente
-            sort(arr.begin(), arr.end()); 
-        break;
-        case 2:
-            //ordenado de forma descendente
-            sort(arr.begin(), arr.end(), compare);
-        break;
-            
-    }
-}
-//generar un conjunto aleatorio basado en rangos
-vector<int> generarConjuntoAleatorio(int rangoMin, int rangoMax) 
-{
-    random_device rd;
-    mt19937 gen(rd());
-    uniform_int_distribution<int> dis(rangoMin, rangoMax);
-
-    int tamano = dis(gen);
-    vector<int> conjunto;
-
-    for(int i = 0; i < tamano; i++)
-    {
-        int elemento = dis(gen);
-        conjunto.push_back(elemento);
-    }
-
-    return conjunto;
-}
-//set de datos ordenado aleatoriamente
-void Aleatorio(vector<int>& arr) 
-{
-    random_device rd;
-    mt19937 gen(rd());
-    shuffle(arr.begin(), arr.end(), gen);
-}
-//set de datos ordenado aleatoriamente sin duplicados
-void AleatorioSinDuplicar(vector<int>& arr)
-{
-    random_device rd;
-    mt19937 gen(rd());
-
-    set<int> elementos;
-    vector<int> resultado;
-    
-    for (int i = arr.size() - 1; i >= 0; --i) 
-    {
-        uniform_int_distribution<int> dis(0, i);
-        int j = dis(gen);
-        swap(arr[i], arr[j]);
-        elementos.insert(arr[i]);
-    }
-    for (int elemento : arr) 
-    {
-        if (elementos.count(elemento) > 0) 
-        {
-            resultado.push_back(elemento);
-            elementos.erase(elemento);
-        }
-    }
-    arr = resultado;
-    
-}
-//set de datos ordenado
-void Ordenado(vector<int>& arr, int op)
-{
-    if(op == 2)
-    {
-        sort(arr.begin(), arr.end()); // Ordenar de forma ascendente
-    }
-    else
-    {
-        sort(arr.begin(), arr.end()); // Ordenar de forma descendente
-    }
-    
-}
-//set de datos inversamente ordenado
-void InversamenteOrdenado(vector<int>& arr, int op)
-{
-    if(op == 1)
-    {
-        sort(arr.rbegin(),arr.rend());// Ordenar de forma descendente
-    }
-    else
-    {
-        sort(arr.rbegin(),arr.rend());// Ordenar de forma descendente
-    }
-}
 int main()
 {
     int op;
-    string opc;
+    //string opc;
 
     int rangoMin=1;
-    int rangoMax = 100;
+    int rangoMax = 900;
     //int tamanio = 10; 
 
     //vector<int> arr = AleatorioUnico(rangoMin,rangoMax,tamanio);
@@ -363,6 +363,7 @@ int main()
     cout<<"2.Descendente."<<endl;
     cin>>op;
     seleccion(arr,op);
+    /*
     if(op==1)
     {
         opc = "Ascendente";
@@ -371,7 +372,8 @@ int main()
     {
         opc = "Descendente";
     }
-    cout<<"Opcion elegida:"<<op<<"."<<opc<<endl;
+    */
+    cout<<"Opcion elegida:"<<op<</*<<opc<<*/endl;
     cout << "Conjunto aleatorio generado: ";
     for (int elemento : arr) 
     {
@@ -386,6 +388,9 @@ int main()
         cout << al << " ";
     }
     cout << endl; 
+
+    /*
+    
     //prueba aleatorio sin duplicar
     AleatorioSinDuplicar(arr);
     cout << "Conjunto ordenado aleatoriamente sin duplicar: ";
@@ -394,6 +399,7 @@ int main()
         cout << alsind << " ";
     }
     cout << endl;
+    //prueba ordenado
     cout << "Conjunto ordenado: ";
     Ordenado(arr,op);
     for (int ord : arr) 
@@ -408,16 +414,7 @@ int main()
         cout << invord << " ";
     }
     cout << endl;
-    /*
-    cout << "Arreglo aleatorio generado: ";
-    for (int num : arr) 
-    {
-        cout << num << " ";
-    }
-    cout << endl;
     */
-
-    
     //SelectionSort(arr); 
     //BubbleSort(arr);
     //InsertionSort(arr);
@@ -427,16 +424,26 @@ int main()
     //heapSort(arr);
 
     ///////////////////////
-    /* 
+    
     //IMPORTANTE: parte que se encarga de los resultados
     unordered_map<string, double> results;
-    results["SeleciontSort"] = getResultFromAlg(arr);
-    vector<int> arr1,arr2; //incluir el segundo con el arreglo ordenado ascendente y descendentemente
-    arr1.assign(arr.begin(), arr.end());
+    vector <int> arr1(arr.begin(),arr.end());
+    SelectionSort(arr1); 
+    results["SeleciontSort"] = getResultFromAlg(arr1);
+    vector<int> arr2(arr.begin(), arr.end());
+    BubbleSort(arr2);
+    results["BubbleSort"] = getResultFromAlg(arr2);
+
+    vector<int> arr3(arr.begin(), arr.end());
+    InsertionSort(arr3);
+    results["InsertionSort"] = getResultFromAlg(arr3);
+    //vector<int> arr1,arr2,arr3; 
+    //arr1.assign(arr.begin(), arr.end());
     //arr2.assign(arr.begin(), arr.end());
+    //arr3.assign(arr.begin(), arr.end());
     int id = 1;
     
-    
+    /*
     //probando si el algoritmo los ordena
     for (int num : arr) 
     {
@@ -444,7 +451,7 @@ int main()
         cout << num << " ";
     }
     cout << endl;
-    
+    */
 
    //resultados del algoritmo en cuanto al tiempo
    for (const auto& pair : results) 
@@ -455,33 +462,9 @@ int main()
         << endl;
         id++;
    }
-   */    
+       
 
     return 0;
 }
 
-/*
-vector<int> AleatorioUnico(int rangoMin, int rangoMax,int tamanio)
-{
-    vector<int>arreglo;
-    set<int>elementos;
 
-    random_device rd;
-    mt19937 gen(rd());
-    uniform_int_distribution<int> dis(rangoMin, rangoMax);
-
-    //generar los elementos unicos aleatorios dentro del rango
-    while(elementos.size() < tamanio)
-    {
-        int num = dis(gen);
-        elementos.insert(num);
-    }
-
-    //agregar los elementos al vector
-    for(int num : elementos)
-    {
-        arreglo.push_back(num);
-    }
-    return arreglo;
-}
-*/
