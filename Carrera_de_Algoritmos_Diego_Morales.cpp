@@ -1,5 +1,5 @@
 #ifdef _WIN32
-#include <Windows.h>
+//#include <Windows.h>
 #else
 #include <unistd.h>
 #endif
@@ -13,6 +13,7 @@
 #include <iomanip>
 #include <set>
 #include<random>
+#include <limits>
 using namespace std;
 
 //comparacion de dos elementos para orden descendente
@@ -455,7 +456,11 @@ int main()
     
     //IMPORTANTE: parte que se encarga de los resultados
     unordered_map<string, double> results;
+    
     vector <int> arr1(arr.begin(),arr.end());
+    bool isO2Algorithm = true; // Variable para indicar si el algoritmo actual es de complejidad O(n^2)
+
+    // Verificar si es un algoritmo de complejidad O(n^2) y establecer isO2Algorithm en true
     //SelectionSort(arr1);
     /*
     cout<<"Prueba Selection"<<endl;
@@ -468,6 +473,7 @@ int main()
     results["SeleciontSort"] = getResultFromAlg(arr1);
 
     vector<int> arr2(arr.begin(), arr.end());
+    bool isO2Algorithm = true;
     //BubbleSort(arr2);
     /*
     cout<<"Prueba Bubble"<<endl;
@@ -480,6 +486,7 @@ int main()
     results["BubbleSort"] = getResultFromAlg(arr2);
 
     vector<int> arr3(arr.begin(), arr.end());
+    bool isO2Algorithm = true;
     //InsertionSort(arr3);
     /*
     cout<<"Prueba insertion"<<endl;
@@ -492,12 +499,15 @@ int main()
     results["InsertionSort"] = getResultFromAlg(arr3);
     
     vector<int> arr4(arr.begin(),arr.end());
+    bool isO2Algorithm = false;
     results["ShellSort"] = getResultFromAlg(arr4);
 
     vector<int> arr5(arr.begin(),arr.end());
+    bool isO2Algorithm = false;
     results["MergeSort"] = getResultFromAlg(arr5);
 
     vector<int> arr6(arr.begin(),arr.end());
+    bool isO2Algorithm = false;
     results["QuickSort"] = getResultFromAlg(arr6);
 
     vector<int> arr7(arr.begin(),arr.end());
@@ -517,17 +527,26 @@ int main()
     }
     cout << endl;
     */
+   double minTime = numeric_limits<double>::max();
+   string winnerAlgorithm;
 
    //resultados del algoritmo en cuanto al tiempo
    for (const auto& pair : results) 
    {
         const string& key = pair.first;
         double value = pair.second;
+
+        if (value < minTime) 
+        {
+            minTime = value;
+            winnerAlgorithm = key;
+        }
         cout << id << ". " << key << ", " << fixed << value << setprecision(5)
         << endl;
         id++;
    }
-       
+
+   cout << "El algoritmo ganador es: " << winnerAlgorithm <<endl;    
 
     return 0;
 }
