@@ -339,6 +339,12 @@ double getResultFromAlg(vector<int>& arr/*,int option*/)
     time(&start);
     ios_base::sync_with_stdio(false);
     //llamar a los 7 algoritmos de ordenamiento
+    vector <int> arr1(arr.begin(),arr.end());
+    SelectionSort(arr1);
+    vector <int> arr2(arr.begin(),arr.end());
+    BubbleSort(arr2);
+    vector <int> arr3(arr.begin(),arr.end());
+    InsertionSort(arr3);
     cout << endl;
     time(&end);
     time_taken = double(end - start);
@@ -352,7 +358,7 @@ int main()
     //string opc;
 
     int rangoMin=1;
-    int rangoMax = 900;
+    int rangoMax = 9000;
     //int tamanio = 10; 
 
     //vector<int> arr = AleatorioUnico(rangoMin,rangoMax,tamanio);
@@ -374,23 +380,29 @@ int main()
     }
     */
     cout<<"Opcion elegida:"<<op<</*<<opc<<*/endl;
+
+    /*
     cout << "Conjunto aleatorio generado: ";
     for (int elemento : arr) 
     {
         cout << elemento << " ";
     }
     cout << endl;
+    */
+
     //prueba aleatorio
     Aleatorio(arr);
+    /*
     cout << "Conjunto ordenado aleatoriamente: ";
     for (int al : arr) 
     {
         cout << al << " ";
     }
     cout << endl; 
+    */
 
-    /*
-    
+
+    /* 
     //prueba aleatorio sin duplicar
     AleatorioSinDuplicar(arr);
     cout << "Conjunto ordenado aleatoriamente sin duplicar: ";
@@ -428,14 +440,39 @@ int main()
     //IMPORTANTE: parte que se encarga de los resultados
     unordered_map<string, double> results;
     vector <int> arr1(arr.begin(),arr.end());
-    SelectionSort(arr1); 
+    //SelectionSort(arr1);
+    /*
+    cout<<"Prueba Selection"<<endl;
+    for (int num : arr1) 
+    {
+        cout << num << " ";
+    }
+    cout << endl; 
+    */
     results["SeleciontSort"] = getResultFromAlg(arr1);
+
     vector<int> arr2(arr.begin(), arr.end());
-    BubbleSort(arr2);
+    //BubbleSort(arr2);
+    /*
+    cout<<"Prueba Bubble"<<endl;
+    for (int num : arr2) 
+    {
+        cout << num << " ";
+    }
+    cout << endl;
+    */ 
     results["BubbleSort"] = getResultFromAlg(arr2);
 
     vector<int> arr3(arr.begin(), arr.end());
-    InsertionSort(arr3);
+    //InsertionSort(arr3);
+    /*
+    cout<<"Prueba insertion"<<endl;
+    for (int num : arr3) 
+    {
+        cout << num << " ";
+    }
+    cout << endl;
+    */
     results["InsertionSort"] = getResultFromAlg(arr3);
     //vector<int> arr1,arr2,arr3; 
     //arr1.assign(arr.begin(), arr.end());
