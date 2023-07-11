@@ -1,5 +1,4 @@
 #ifdef _WIN32
-//#include <Windows.h>
 #else
 #include <unistd.h>
 #endif
@@ -14,16 +13,20 @@
 #include <set>
 #include<random>
 #include <limits>
+#include <ratio>
+#include <chrono>
 using namespace std;
+using namespace chrono;
+using std::chrono::high_resolution_clock;
+using std::chrono::duration;
+using std::chrono::duration_cast;
 
-//comparacion de dos elementos para orden descendente
-bool compare(int a, int b) 
+bool compare(int a, int b) //comparacion de dos elementos para orden descendente
 {
     return a > b;  // Orden descendente
 }
 
-//seleccion de ordenamiento
-void seleccion(vector<int>& arr, int op)
+void seleccion(vector<int>& arr, int op)//seleccion de ordenamiento
 {
     switch (op)
     {
@@ -38,8 +41,8 @@ void seleccion(vector<int>& arr, int op)
             
     }
 }
-//generar un conjunto aleatorio basado en rangos
-vector<int> generarConjuntoAleatorio(int rangoMin, int rangoMax) 
+
+vector<int> generarConjuntoAleatorio(int rangoMin, int rangoMax) //generar un conjunto aleatorio basado en rangos
 {
     random_device rd;
     mt19937 gen(rd());
@@ -56,15 +59,15 @@ vector<int> generarConjuntoAleatorio(int rangoMin, int rangoMax)
 
     return conjunto;
 }
-//set de datos ordenado aleatoriamente
-void Aleatorio(vector<int>& arr) 
+
+void Aleatorio(vector<int>& arr) //set de datos ordenado aleatoriamente
 {
     random_device rd;
     mt19937 gen(rd());
     shuffle(arr.begin(), arr.end(), gen);
 }
-//set de datos ordenado aleatoriamente sin duplicados
-void AleatorioSinDuplicar(vector<int>& arr)
+
+void AleatorioSinDuplicar(vector<int>& arr)//set de datos ordenado aleatoriamente sin duplicados
 {
     random_device rd;
     mt19937 gen(rd());
@@ -90,8 +93,8 @@ void AleatorioSinDuplicar(vector<int>& arr)
     arr = resultado;
     
 }
-//set de datos ordenado
-void Ordenado(vector<int>& arr, int op)
+
+void Ordenado(vector<int>& arr, int op)//set de datos ordenado
 {
     if(op == 2)
     {
@@ -103,8 +106,8 @@ void Ordenado(vector<int>& arr, int op)
     }
     
 }
-//set de datos inversamente ordenado
-void InversamenteOrdenado(vector<int>& arr, int op)
+
+void InversamenteOrdenado(vector<int>& arr, int op)//set de datos inversamente ordenado
 {
     if(op == 1)
     {
@@ -185,8 +188,8 @@ void shellSort(std::vector<int>& arr)
         gap /= 2;
     }
 }
-// Función para combinar dos subarreglos ordenados en un solo arreglo ordenado
-void merge(vector<int>& arr, int left, int middle, int right) 
+
+void merge(vector<int>& arr, int left, int middle, int right) //Función para combinar dos subarreglos ordenados en un solo arreglo ordenado
 {
     int n1 = middle - left + 1;
     int n2 = right - middle;
@@ -241,8 +244,8 @@ void merge(vector<int>& arr, int left, int middle, int right)
         k++;
     }
 }
-// Función recursiva para dividir y ordenar el arreglo en subarreglos más pequeños
-void MergeSort(vector<int>& arr, int left = 0, int right = -1) 
+
+void MergeSort(vector<int>& arr, int left = 0, int right = -1) //Función recursiva para dividir y ordenar el arreglo en subarreglos más pequeños
 {
     if (right == -1) 
     {
@@ -262,41 +265,70 @@ void MergeSort(vector<int>& arr, int left = 0, int right = -1)
         merge(arr, left, middle, right);
     }
 }
-// Función para colocar el pivote en su posición correcta
-int partition(vector<int>& arr, int low, int high) 
-{
-    int pivot = arr[high];
-    int i = low - 1;
 
-    for (int j = low; j <= high - 1; j++) 
+int partition(vector<int>& arr, int start, int end)
+{
+ 
+    int pivot = arr[start];
+ 
+    int count = 0;
+    for (int i = start + 1; i <= end; i++) 
     {
-        if (arr[j] < pivot) 
+        if (arr[i] <= pivot)
+        {
+            count++;
+        }
+            
+    }
+ 
+    // Giving pivot element its correct position
+    int pivotIndex = start + count;
+    swap(arr[pivotIndex], arr[start]);
+ 
+    // Sorting left and right parts of the pivot element
+    int i = start, j = end;
+ 
+    while (i < pivotIndex && j > pivotIndex) 
+    {
+ 
+        while (arr[i] <= pivot) 
         {
             i++;
-            swap(arr[i], arr[j]);
+        }
+ 
+        while (arr[j] > pivot) 
+        {
+            j--;
+        }
+ 
+        if (i < pivotIndex && j > pivotIndex) 
+        {
+            swap(arr[i++], arr[j--]);
         }
     }
-    swap(arr[i + 1], arr[high]);
-    return i + 1;
+ 
+    return pivotIndex;
 }
-// Función recursiva para ordenar el arreglo utilizando Quick Sort
-void quickSort(vector<int>& arr, int low = 0, int high = -1) 
-{
-    if (high == -1) 
-    {
-        high = arr.size() - 1;
-    }
-    if (low < high) 
-    {
-        int pivotIndex = partition(arr, low, high);
 
-        //Ordenar los elementos antes y después del pivote
-        quickSort(arr, low, pivotIndex - 1);
-        quickSort(arr, pivotIndex + 1, high);
+void quickSort(vector<int>& arr, int start, int end)
+{
+ 
+    // base case
+    if (start >= end)
+    {
+        return;
     }
+    // partitioning the array
+    int p = partition(arr, start, end);
+ 
+    // Sorting the left part
+    quickSort(arr, start, p - 1);
+ 
+    // Sorting the right part
+    quickSort(arr, p + 1, end);
 }
-// Función para realizar el ajuste descendente (sift-down) en un subárbol
-void siftDown(vector<int>& arr, int n, int i) 
+
+void siftDown(vector<int>& arr, int n, int i) //Función para realizar el ajuste descendente (sift-down) en un subárbol
 {
     int largest = i;            //inicialmente, asumimos que el nodo actual es el más grande
     int left = 2 * i + 1;      //indice del hijo izquierdo
@@ -321,8 +353,8 @@ void siftDown(vector<int>& arr, int n, int i)
         siftDown(arr, n, largest);
     }
 }
-// Función para ordenar el arreglo utilizando Heap Sort
-void heapSort(vector<int>& arr) 
+
+void heapSort(vector<int>& arr) //Función para ordenar el arreglo utilizando Heap Sort
 {
     int n = arr.size();
 
@@ -340,46 +372,13 @@ void heapSort(vector<int>& arr)
     }
 }
 
-//determina el resultado en tiempo de los algoritmos de ordenamiento
-double getResultFromAlg(vector<int>& arr/*,int option*/) 
-{
-    time_t start, end;
-    double time_taken;
-    time(&start);
-    ios_base::sync_with_stdio(false);
-    //llamar a los 7 algoritmos de ordenamiento
-    vector <int> arr1(arr.begin(),arr.end());
-    SelectionSort(arr1);
-    vector <int> arr2(arr.begin(),arr.end());
-    BubbleSort(arr2);
-    vector <int> arr3(arr.begin(),arr.end());
-    InsertionSort(arr3);
-    vector <int> arr4(arr.begin(),arr.end());
-    shellSort(arr4);
-    vector <int> arr5(arr.begin(),arr.end());
-    MergeSort(arr5);
-    vector <int> arr6(arr.begin(),arr.end());
-    quickSort(arr6);
-    vector <int> arr7(arr.begin(),arr.end());
-    heapSort(arr7);
-    cout << endl;
-    time(&end);
-    time_taken = double(end - start);
-    return time_taken;
-}
-
-
 int main()
 {
     int op;
-    //string opc;
+    //string opc;    
+    int rangoMin=90000;
+    int rangoMax = 100000; 
 
-    int rangoMin=1;
-    int rangoMax = 9000;
-    //int tamanio = 10; 
-
-    //vector<int> arr = AleatorioUnico(rangoMin,rangoMax,tamanio);
-    //int n = arr.size();
     vector<int> arr = generarConjuntoAleatorio(rangoMin,rangoMax);
     cout<<"Carreras de algoritmos"<<endl;
     cout<<"1.Ascendente."<<endl;
@@ -397,15 +396,6 @@ int main()
     }
     */
     cout<<"Opcion elegida:"<<op<</*<<opc<<*/endl;
-
-    /*
-    cout << "Conjunto aleatorio generado: ";
-    for (int elemento : arr) 
-    {
-        cout << elemento << " ";
-    }
-    cout << endl;
-    */
 
     //prueba aleatorio
     Aleatorio(arr);
@@ -444,110 +434,106 @@ int main()
     }
     cout << endl;
     */
-    //SelectionSort(arr); 
-    //BubbleSort(arr);
-    //InsertionSort(arr);
-    //shellSort(arr);
-    //MergeSort(arr, 0, n - 1);
-    //quickSort(arr,0,n - 1);
-    //heapSort(arr);
-
     ///////////////////////
     
     //IMPORTANTE: parte que se encarga de los resultados
     unordered_map<string, double> results;
     
-    vector <int> arr1(arr.begin(),arr.end());
-    bool isO2Algorithm = true; // Variable para indicar si el algoritmo actual es de complejidad O(n^2)
-
-    // Verificar si es un algoritmo de complejidad O(n^2) y establecer isO2Algorithm en true
-    //SelectionSort(arr1);
-    /*
-    cout<<"Prueba Selection"<<endl;
-    for (int num : arr1) 
-    {
-        cout << num << " ";
-    }
-    cout << endl; 
-    */
-    results["SeleciontSort"] = getResultFromAlg(arr1);
-
-    vector<int> arr2(arr.begin(), arr.end());
-    bool isO2Algorithm = true;
-    //BubbleSort(arr2);
-    /*
-    cout<<"Prueba Bubble"<<endl;
-    for (int num : arr2) 
-    {
-        cout << num << " ";
-    }
-    cout << endl;
-    */ 
-    results["BubbleSort"] = getResultFromAlg(arr2);
-
-    vector<int> arr3(arr.begin(), arr.end());
-    bool isO2Algorithm = true;
-    //InsertionSort(arr3);
-    /*
-    cout<<"Prueba insertion"<<endl;
-    for (int num : arr3) 
-    {
-        cout << num << " ";
-    }
-    cout << endl;
-    */
-    results["InsertionSort"] = getResultFromAlg(arr3);
     
-    vector<int> arr4(arr.begin(),arr.end());
-    bool isO2Algorithm = false;
-    results["ShellSort"] = getResultFromAlg(arr4);
-
-    vector<int> arr5(arr.begin(),arr.end());
-    bool isO2Algorithm = false;
-    results["MergeSort"] = getResultFromAlg(arr5);
-
-    vector<int> arr6(arr.begin(),arr.end());
-    bool isO2Algorithm = false;
-    results["QuickSort"] = getResultFromAlg(arr6);
-
-    vector<int> arr7(arr.begin(),arr.end());
-    results["HeapSort"] = getResultFromAlg(arr7);
-    //vector<int> arr1,arr2,arr3; 
-    //arr1.assign(arr.begin(), arr.end());
-    //arr2.assign(arr.begin(), arr.end());
-    //arr3.assign(arr.begin(), arr.end());
-    int id = 1;
     
-    /*
-    //probando si el algoritmo los ordena
-    for (int num : arr) 
-    {
-        cout<<"entro"<<endl;
-        cout << num << " ";
-    }
-    cout << endl;
-    */
+   //Selection
+   vector <int> arr1(arr.begin(),arr.end());
+   high_resolution_clock::time_point t1s = high_resolution_clock::now();
+   SelectionSort(arr1);
+   high_resolution_clock::time_point t2s = high_resolution_clock::now();
+   duration<double> time_spans = duration_cast<duration<double>>(t2s - t1s);
+   std::cout << "Selection: " << time_spans.count() << " seconds."<<endl;
+   //Bubble 
+   vector <int> arr2(arr.begin(),arr.end());
+   high_resolution_clock::time_point t1b = high_resolution_clock::now();
+   BubbleSort(arr2);
+   high_resolution_clock::time_point t2b = high_resolution_clock::now();
+   duration<double> time_spanb = duration_cast<duration<double>>(t2b - t1b);
+   std::cout << "Bubble: " << time_spanb.count() << " seconds."<<endl;
+   //Insertion 
+   vector <int> arr3(arr.begin(),arr.end());
+   high_resolution_clock::time_point t1i = high_resolution_clock::now();
+   InsertionSort(arr3);
+   high_resolution_clock::time_point t2i = high_resolution_clock::now();
+   duration<double> time_spani = duration_cast<duration<double>>(t2i - t1i);
+   std::cout << "Insertion: " << time_spani.count() << " seconds."<<endl;
+   //Shell
+   vector <int> arr4(arr.begin(),arr.end());
+   high_resolution_clock::time_point t1sh = high_resolution_clock::now();
+   shellSort(arr4);
+   high_resolution_clock::time_point t2sh = high_resolution_clock::now();
+   duration<double> time_spansh = duration_cast<duration<double>>(t2sh - t1sh);
+   std::cout << "Shell: " << time_spansh.count() << " seconds."<<endl;
+   //Merge 
+   vector <int> arr5(arr.begin(),arr.end());
+   high_resolution_clock::time_point t1m = high_resolution_clock::now();
+   MergeSort(arr5);
+   high_resolution_clock::time_point t2m = high_resolution_clock::now();
+   duration<double> time_spanm = duration_cast<duration<double>>(t2m - t1m);
+   std::cout << "Merge: " << time_spanm.count() << " seconds."<<endl;
+   //Quick
+   vector <int> arr6(arr.begin(),arr.end());
+   int n = arr6.size();
+   high_resolution_clock::time_point t1q = high_resolution_clock::now();
+   quickSort(arr6,0,n-1);
+   high_resolution_clock::time_point t2q = high_resolution_clock::now();
+   duration<double> time_spanq = duration_cast<duration<double>>(t2q - t1q);
+   std::cout << "Quick: " << time_spanq.count() << " seconds."<<endl;
+   //Heap
+   vector <int> arr7(arr.begin(),arr.end());
+   high_resolution_clock::time_point t1h = high_resolution_clock::now();
+   heapSort(arr7);
+   high_resolution_clock::time_point t2h = high_resolution_clock::now();
+   duration<double> time_spanh = duration_cast<duration<double>>(t2h - t1h);
+   std::cout << "Heap: " << time_spanh.count() << " seconds."<<endl;
+
    double minTime = numeric_limits<double>::max();
    string winnerAlgorithm;
 
-   //resultados del algoritmo en cuanto al tiempo
-   for (const auto& pair : results) 
+   if (time_spans.count() < minTime) 
    {
-        const string& key = pair.first;
-        double value = pair.second;
-
-        if (value < minTime) 
-        {
-            minTime = value;
-            winnerAlgorithm = key;
-        }
-        cout << id << ". " << key << ", " << fixed << value << setprecision(5)
-        << endl;
-        id++;
+    minTime = time_spans.count();
+    winnerAlgorithm = "Selection Sort";
+   }
+   if (time_spanb.count() < minTime) 
+   {
+    minTime = time_spanb.count();
+    winnerAlgorithm = "Bubble Sort";
+   }
+   if (time_spani.count() < minTime) 
+   {
+    minTime = time_spani.count();
+    winnerAlgorithm = "Insertion Sort";
+   }
+   if (time_spansh.count() < minTime) 
+   {
+    minTime = time_spansh.count();
+    winnerAlgorithm = "Shell Sort";
+   }
+   if (time_spanm.count() < minTime) 
+   {
+    minTime = time_spanm.count();
+    winnerAlgorithm = "Merge Sort";
+   }
+   if (time_spanq.count() < minTime) 
+   {
+    minTime = time_spanq.count();
+    winnerAlgorithm = "Quick Sort";
+   }
+   if (time_spanh.count() < minTime) 
+   {
+    minTime = time_spanh.count();
+    winnerAlgorithm = "Heap Sort";
    }
 
-   cout << "El algoritmo ganador es: " << winnerAlgorithm <<endl;    
+   cout << "El algoritmo ganador es: " << winnerAlgorithm << " con un tiempo de ejecucion de " << minTime << " segundos." << std::endl;
 
+   
     return 0;
 }
 
