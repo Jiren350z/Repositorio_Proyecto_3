@@ -241,8 +241,12 @@ void merge(vector<int>& arr, int left, int middle, int right)
     }
 }
 // Función recursiva para dividir y ordenar el arreglo en subarreglos más pequeños
-void MergeSort(vector<int>& arr, int left, int right) 
+void MergeSort(vector<int>& arr, int left = 0, int right = -1) 
 {
+    if (right == -1) 
+    {
+        right = arr.size() - 1;
+    }
     if (left < right) 
     {
         int middle = left + (right - left) / 2;
@@ -275,8 +279,12 @@ int partition(vector<int>& arr, int low, int high)
     return i + 1;
 }
 // Función recursiva para ordenar el arreglo utilizando Quick Sort
-void quickSort(vector<int>& arr, int low, int high) 
+void quickSort(vector<int>& arr, int low = 0, int high = -1) 
 {
+    if (high == -1) 
+    {
+        high = arr.size() - 1;
+    }
     if (low < high) 
     {
         int pivotIndex = partition(arr, low, high);
@@ -345,6 +353,14 @@ double getResultFromAlg(vector<int>& arr/*,int option*/)
     BubbleSort(arr2);
     vector <int> arr3(arr.begin(),arr.end());
     InsertionSort(arr3);
+    vector <int> arr4(arr.begin(),arr.end());
+    shellSort(arr4);
+    vector <int> arr5(arr.begin(),arr.end());
+    MergeSort(arr5);
+    vector <int> arr6(arr.begin(),arr.end());
+    quickSort(arr6);
+    vector <int> arr7(arr.begin(),arr.end());
+    heapSort(arr7);
     cout << endl;
     time(&end);
     time_taken = double(end - start);
@@ -474,6 +490,18 @@ int main()
     cout << endl;
     */
     results["InsertionSort"] = getResultFromAlg(arr3);
+    
+    vector<int> arr4(arr.begin(),arr.end());
+    results["ShellSort"] = getResultFromAlg(arr4);
+
+    vector<int> arr5(arr.begin(),arr.end());
+    results["MergeSort"] = getResultFromAlg(arr5);
+
+    vector<int> arr6(arr.begin(),arr.end());
+    results["QuickSort"] = getResultFromAlg(arr6);
+
+    vector<int> arr7(arr.begin(),arr.end());
+    results["HeapSort"] = getResultFromAlg(arr7);
     //vector<int> arr1,arr2,arr3; 
     //arr1.assign(arr.begin(), arr.end());
     //arr2.assign(arr.begin(), arr.end());
