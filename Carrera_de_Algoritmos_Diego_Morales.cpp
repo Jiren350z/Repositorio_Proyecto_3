@@ -389,6 +389,13 @@ void ejecutarCarreraAlgoritmos(const vector<int>& arr)//Función para ejecutar u
    vector <int> arr2(arr.begin(),arr.end());
    high_resolution_clock::time_point t1b = high_resolution_clock::now();
    BubbleSort(arr2);
+   cout << "Prueba: ";
+    for (int al : arr2) 
+    {
+        cout << al << " ";
+    }
+    cout << endl; 
+    
    high_resolution_clock::time_point t2b = high_resolution_clock::now();
    duration<double> time_spanb = duration_cast<duration<double>>(t2b - t1b);
    //cout << "Bubble: " << time_spanb.count() << " seconds."<<endl;
@@ -493,7 +500,7 @@ void ejecutarCarreras()//Función principal para ejecutar todas las carreras de 
     vector<int> arrAleatorioSinDuplicar(arr);
     AleatorioSinDuplicar(arrAleatorioSinDuplicar);
     ejecutarCarreraAlgoritmos(arrAleatorioSinDuplicar);
-    /////////////////////
+    //////////////////////////////////////////
     int rango2min = 50000;
     int rango2max = 70000;
     vector<int> arr2 = generarConjuntoAleatorio(rango2min,rango2max);
@@ -523,6 +530,7 @@ void ejecutarCarreras()//Función principal para ejecutar todas las carreras de 
     vector<int> arrAleatorioSinDuplicar2(arr2);
     AleatorioSinDuplicar(arrAleatorioSinDuplicar2);
     ejecutarCarreraAlgoritmos(arrAleatorioSinDuplicar2);
+    //////////////////////////////////////////
 
 
 
@@ -534,7 +542,15 @@ int main()
     ejecutarCarreras();
 
 
-
+    //impresion para prueba
+    /*
+    cout << "Prueba: ";
+    for (int al : arr) 
+    {
+        cout << al << " ";
+    }
+    cout << endl; 
+    */
 
 
     /*
@@ -641,45 +657,7 @@ int main()
     */
 
 
-   /* 
-   if (time_spans.count() < minTime) 
-   {
-    minTime = time_spans.count();
-    winnerAlgorithm = "Selection Sort";
-   }
-   if (time_spanb.count() < minTime) 
-   {
-    minTime = time_spanb.count();
-    winnerAlgorithm = "Bubble Sort";
-   }
-   if (time_spani.count() < minTime) 
-   {
-    minTime = time_spani.count();
-    winnerAlgorithm = "Insertion Sort";
-   }
-   if (time_spansh.count() < minTime) 
-   {
-    minTime = time_spansh.count();
-    winnerAlgorithm = "Shell Sort";
-   }
-   if (time_spanm.count() < minTime) 
-   {
-    minTime = time_spanm.count();
-    winnerAlgorithm = "Merge Sort";
-   }
-   if (time_spanq.count() < minTime) 
-   {
-    minTime = time_spanq.count();
-    winnerAlgorithm = "Quick Sort";
-   }
-   if (time_spanh.count() < minTime) 
-   {
-    minTime = time_spanh.count();
-    winnerAlgorithm = "Heap Sort";
-   }
-
-   cout << "El algoritmo ganador es: " << winnerAlgorithm << " con un tiempo de ejecucion de " << minTime << " segundos." << std::endl;
-   */
+   
    
     return 0;
 }
