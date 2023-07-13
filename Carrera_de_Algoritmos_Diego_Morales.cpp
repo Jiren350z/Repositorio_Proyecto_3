@@ -389,13 +389,6 @@ void ejecutarCarreraAlgoritmos(const vector<int>& arr)//Función para ejecutar u
    vector <int> arr2(arr.begin(),arr.end());
    high_resolution_clock::time_point t1b = high_resolution_clock::now();
    BubbleSort(arr2);
-   cout << "Prueba: ";
-    for (int al : arr2) 
-    {
-        cout << al << " ";
-    }
-    cout << endl; 
-    
    high_resolution_clock::time_point t2b = high_resolution_clock::now();
    duration<double> time_spanb = duration_cast<duration<double>>(t2b - t1b);
    //cout << "Bubble: " << time_spanb.count() << " seconds."<<endl;
@@ -403,7 +396,7 @@ void ejecutarCarreraAlgoritmos(const vector<int>& arr)//Función para ejecutar u
    //Insertion 
    vector <int> arr3(arr.begin(),arr.end());
    high_resolution_clock::time_point t1i = high_resolution_clock::now();
-   InsertionSort(arr3);
+   InsertionSort(arr3);    
    high_resolution_clock::time_point t2i = high_resolution_clock::now();
    duration<double> time_spani = duration_cast<duration<double>>(t2i - t1i);
    //cout << "Insertion: " << time_spani.count() << " seconds."<<endl;
