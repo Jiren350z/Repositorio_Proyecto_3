@@ -372,7 +372,6 @@ void heapSort(vector<int>& arr) //Función para ordenar el arreglo utilizando He
     }
 }
 
-
 void ejecutarCarreraAlgoritmos(const vector<int>& arr)//Función para ejecutar una carrera de algoritmos en un conjunto de datos
 {
     //IMPORTANTE: parte que se encarga de los resultados
@@ -460,7 +459,6 @@ void ejecutarCarreraAlgoritmos(const vector<int>& arr)//Función para ejecutar u
 
 }
 
-
 void ejecutarCarreras()//Función principal para ejecutar todas las carreras de algoritmos en diferentes modos y rangos
 {
     int rangoMin = 90000;
@@ -470,8 +468,9 @@ void ejecutarCarreras()//Función principal para ejecutar todas las carreras de 
     cout << "Carreras de algoritmos" << endl;
     cout << "1. Ascendente." << endl;
     cout << "2. Descendente." << endl;
+    cout<<"Opcion elegida:"<<endl;
     cin >> op;
-    cout<<"Opcion elegida:"<<op<<endl;
+    //cout<<"Opcion elegida:"<<op<<endl;
     seleccion(arr,op);
     cout<<"Carrera por el tablero:"<<endl;
     //Modo 1: Ordenado
@@ -494,7 +493,36 @@ void ejecutarCarreras()//Función principal para ejecutar todas las carreras de 
     vector<int> arrAleatorioSinDuplicar(arr);
     AleatorioSinDuplicar(arrAleatorioSinDuplicar);
     ejecutarCarreraAlgoritmos(arrAleatorioSinDuplicar);
-    
+    /////////////////////
+    int rango2min = 50000;
+    int rango2max = 70000;
+    vector<int> arr2 = generarConjuntoAleatorio(rango2min,rango2max);
+    cout << "1. Ascendente." << endl;
+    cout << "2. Descendente." << endl;
+    cout<<"Opcion elegida:"<<endl;
+    cin >> op;
+    seleccion(arr2,op);
+    cout<<"Carrera por los Caminos"<<endl;
+    //Modo 1: Ordenado
+    cout<<"Modo 1: Ordenado"<<endl;
+    vector<int> arrOrdenado2(arr2);
+    Ordenado(arrOrdenado2,op);
+    ejecutarCarreraAlgoritmos(arrOrdenado2);
+    //Modo 2: Inversamente Ordenado
+    cout<<"Modo 2: Inversamente Ordenado"<<endl;
+    vector<int> arrInverso2(arr2);
+    InversamenteOrdenado(arrInverso2,op);
+    ejecutarCarreraAlgoritmos(arrInverso2);
+    //Modo 3: Aleatorio
+    cout<<"Modo 3: Aleatorio"<<endl;
+    vector<int> arrAleatorio2(arr2);
+    Aleatorio(arrAleatorio2);
+    ejecutarCarreraAlgoritmos(arrAleatorio2);
+    //Modo 4: Aleatorio Sin Duplicar
+    cout<<"Modo 4: Aleatorio Sin Duplicar"<<endl;
+    vector<int> arrAleatorioSinDuplicar2(arr2);
+    AleatorioSinDuplicar(arrAleatorioSinDuplicar2);
+    ejecutarCarreraAlgoritmos(arrAleatorioSinDuplicar2);
 
 
 
