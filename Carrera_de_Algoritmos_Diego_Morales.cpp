@@ -46,15 +46,19 @@ vector<int> generarConjuntoAleatorio(int rangoMin, int rangoMax) //generar un co
 {
     random_device rd;
     mt19937 gen(rd());
-    uniform_int_distribution<int> dis(rangoMin, rangoMax);
+    uniform_int_distribution<int> dis(0, 100000);
+    uniform_int_distribution<int> dis2(rangoMin,rangoMax);
 
-    int tamano = dis(gen);
+    //int tamano = dis(gen);
+    int tamano = dis2(gen);
     vector<int> conjunto;
 
     for(int i = 0; i < tamano; i++)
     {
+        
         int elemento = dis(gen);
         conjunto.push_back(elemento);
+        
     }
 
     return conjunto;
@@ -461,10 +465,16 @@ void ejecutarCarreraAlgoritmos(const vector<int>& arr)//Función para ejecutar u
 
 void ejecutarCarreras()//Función principal para ejecutar todas las carreras de algoritmos en diferentes modos y rangos
 {
-    int rangoMin = 90000;
-    int rangoMax = 100000;
+    int rangoMin = 0;
+    int rangoMax = 10;
     int op;
     vector<int> arr = generarConjuntoAleatorio(rangoMin, rangoMax);
+    cout << "Prueba: ";
+    for (int al : arr) 
+    {
+        cout << al << " ";
+    }
+    cout << endl; 
     cout << "Carreras de algoritmos" << endl;
     cout << "1. Ascendente." << endl;
     cout << "2. Descendente." << endl;
