@@ -21,6 +21,7 @@ using std::chrono::high_resolution_clock;
 using std::chrono::duration;
 using std::chrono::duration_cast;
 
+
 //BORRAR
 vector<int> Conjunto(int rangoMin, int rangoMax)
 {
@@ -95,15 +96,36 @@ void seleccion(vector<int>& arr, int op)//seleccion de ordenamiento
     }
 }
 
+vector<int> Ordenado(int rangoMin, int rangoMax)
+{
+    vector<int> conjunto;
+    for(int i = rangoMin; i <= rangoMax; i++)
+    {
+        conjunto.push_back(i);
+    }
+    return conjunto;
+}
 
-void Aleatorio(vector<int>& arr) //set de datos ordenado aleatoriamente
+vector<int> InversamenteOrdenado(int rangoMin, int rangoMax)
+{
+    vector<int> conjunto;
+    for(int i = rangoMax; i >= rangoMin; i--)
+    {
+        conjunto.push_back(i);
+    }
+    return conjunto;
+}
+
+
+//BORRAR
+void aleatorio(vector<int>& arr) //set de datos ordenado aleatoriamente
 {
     random_device rd;
     mt19937 gen(rd());
     shuffle(arr.begin(), arr.end(), gen);
 }
-
-void AleatorioSinDuplicar(vector<int>& arr)//set de datos ordenado aleatoriamente sin duplicados
+//BORRAR
+void aleatorioSinDuplicar(vector<int>& arr)//set de datos ordenado aleatoriamente sin duplicados
 {
     random_device rd;
     mt19937 gen(rd());
@@ -129,7 +151,6 @@ void AleatorioSinDuplicar(vector<int>& arr)//set de datos ordenado aleatoriament
     arr = resultado;
     
 }
-
 //BORRAR
 void ordenado(vector<int>& arr, int op)//set de datos ordenado
 {
@@ -142,8 +163,8 @@ void ordenado(vector<int>& arr, int op)//set de datos ordenado
 
     }
 }
-
-void InversamenteOrdenado(vector<int>& arr, int op)//set de datos inversamente ordenado
+//BORRAR
+void inversamenteOrdenado(vector<int>& arr, int op)//set de datos inversamente ordenado
 {
     if(op == 1)
     {
@@ -532,14 +553,11 @@ void ejecutarCarreras()//Función principal para ejecutar todas las carreras de 
     cout<<"Carrera por el tablero:"<<endl;
     //Modo 1: Ordenado
     cout<<"Modo 1: Ordenado"<<endl;
-    vector<int> arrOrdenado = ;
+    vector<int> arrOrdenado = Ordenado(rangoMin,rangoMax);
+    /*
+    vector<int> arrOrdenado;
     Ordenado(arrOrdenado,op);
     cout << "Prueba: ";
-    for (int al : arrOrdenado) 
-    {
-        cout << al << " ";
-    }
-    cout << endl; 
     ejecutarCarreraAlgoritmos(arrOrdenado);
     arrOrdenado.clear();
     //Modo 2: Inversamente Ordenado
@@ -559,7 +577,10 @@ void ejecutarCarreras()//Función principal para ejecutar todas las carreras de 
     vector<int> arrAleatorioSinDuplicar(arr);
     AleatorioSinDuplicar(arrAleatorioSinDuplicar);
     ejecutarCarreraAlgoritmos(arrAleatorioSinDuplicar);
+    */
     //////////////////////////////////////////
+
+    /*
     int rango2min = 1;
     int rango2max = 70000;
     vector<int> arr2 = Conjunto(rango2min,rango2max);
@@ -590,7 +611,7 @@ void ejecutarCarreras()//Función principal para ejecutar todas las carreras de 
     int rango3min = 1;
     int rango3max = 15000;
     vector<int>arr3(arr);
-
+    */
 
 }
 
