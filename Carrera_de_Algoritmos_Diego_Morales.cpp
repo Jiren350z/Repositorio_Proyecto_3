@@ -21,11 +21,64 @@ using std::chrono::high_resolution_clock;
 using std::chrono::duration;
 using std::chrono::duration_cast;
 
+//BORRAR
+vector<int> Conjunto(int rangoMin, int rangoMax)
+{
+    vector<int> conjunto;
+    srand(time(0)); //Inicializar la semilla aleatoria
+
+    for (int i = rangoMin; i <= rangoMax; i++)
+    {
+        conjunto.push_back(i);
+    }
+
+                                            
+    for (int i = 0; i < conjunto.size(); i++)//Mezclar el conjunto de forma aleatoria
+    {
+        int randomIndex = std::rand() % conjunto.size();
+        swap(conjunto[i], conjunto[randomIndex]);
+    }
+
+    return conjunto;
+}
+//BORRAR
+vector<int> conjunto(int rangoMin, int rangoMax)
+{
+    vector<int> conjunto;
+    for(int i = rangoMin; i <= rangoMax; i++)
+    {
+        conjunto.push_back(i);
+    }
+    return conjunto;
+}
+//BORRAR
+vector<int> generarConjuntoAleatorio(int rangoMin, int rangoMax) //generar un conjunto aleatorio basado en rangos
+{
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<int> dis(0, 1000000); //numeros que van al tamaño
+    uniform_int_distribution<int> dis2(rangoMin,rangoMax); //generador de tamaño
+
+    //int tamano = dis(gen);
+    int tamano = dis2(gen);
+    vector<int> conjunto;
+
+    for(int i = 0; i < tamano; i++)
+    {
+        
+        int elemento = dis(gen);
+        conjunto.push_back(elemento);
+        
+    }
+
+    return conjunto;
+}
+//BORRAR
 bool compare(int a, int b) //comparacion de dos elementos para orden descendente
 {
     return a > b;  // Orden descendente
 }
-
+//BORRAR
 void seleccion(vector<int>& arr, int op)//seleccion de ordenamiento
 {
     switch (op)
@@ -42,27 +95,6 @@ void seleccion(vector<int>& arr, int op)//seleccion de ordenamiento
     }
 }
 
-vector<int> generarConjuntoAleatorio(int rangoMin, int rangoMax) //generar un conjunto aleatorio basado en rangos
-{
-    random_device rd;
-    mt19937 gen(rd());
-    uniform_int_distribution<int> dis(0, 100000);
-    uniform_int_distribution<int> dis2(rangoMin,rangoMax);
-
-    //int tamano = dis(gen);
-    int tamano = dis2(gen);
-    vector<int> conjunto;
-
-    for(int i = 0; i < tamano; i++)
-    {
-        
-        int elemento = dis(gen);
-        conjunto.push_back(elemento);
-        
-    }
-
-    return conjunto;
-}
 
 void Aleatorio(vector<int>& arr) //set de datos ordenado aleatoriamente
 {
@@ -98,17 +130,17 @@ void AleatorioSinDuplicar(vector<int>& arr)//set de datos ordenado aleatoriament
     
 }
 
-void Ordenado(vector<int>& arr, int op)//set de datos ordenado
+//BORRAR
+void ordenado(vector<int>& arr, int op)//set de datos ordenado
 {
     if(op == 2)
     {
         sort(arr.begin(), arr.end()); // Ordenar de forma ascendente
     }
-    else
+    else if (op == 1)
     {
-        sort(arr.begin(), arr.end()); // Ordenar de forma descendente
+
     }
-    
 }
 
 void InversamenteOrdenado(vector<int>& arr, int op)//set de datos inversamente ordenado
@@ -158,6 +190,19 @@ void BubbleSort(vector<int>& arr)
 void InsertionSort(vector<int>& arr)
 {
     int n = arr.size();
+    int i, key, j;
+    for (i = 1; i < n; i++) 
+    {
+        key = arr[i];
+        j = i - 1;
+        while (j >= 0 && arr[j] > key) 
+        {
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+    }
+    /*
     for(int i = 1; i < n; i++)
     {
         int key = arr[i];
@@ -169,6 +214,7 @@ void InsertionSort(vector<int>& arr)
         }
         arr[j + 1] = key;
     }
+    */
 }
 
 void shellSort(std::vector<int>& arr) 
@@ -389,6 +435,7 @@ void ejecutarCarreraAlgoritmos(const vector<int>& arr)//Función para ejecutar u
    duration<double> time_spans = duration_cast<duration<double>>(t2s - t1s);
    //cout << "Selection: " << time_spans.count() << " seconds."<<endl;
    results["Selection Sort"] = time_spans.count();
+   arr1.clear();
    //Bubble 
    vector <int> arr2(arr.begin(),arr.end());
    high_resolution_clock::time_point t1b = high_resolution_clock::now();
@@ -397,6 +444,7 @@ void ejecutarCarreraAlgoritmos(const vector<int>& arr)//Función para ejecutar u
    duration<double> time_spanb = duration_cast<duration<double>>(t2b - t1b);
    //cout << "Bubble: " << time_spanb.count() << " seconds."<<endl;
    results["Bubble Sort"] = time_spanb.count();
+   arr2.clear();
    //Insertion 
    vector <int> arr3(arr.begin(),arr.end());
    high_resolution_clock::time_point t1i = high_resolution_clock::now();
@@ -405,6 +453,7 @@ void ejecutarCarreraAlgoritmos(const vector<int>& arr)//Función para ejecutar u
    duration<double> time_spani = duration_cast<duration<double>>(t2i - t1i);
    //cout << "Insertion: " << time_spani.count() << " seconds."<<endl;
    results["Insertion Sort"] = time_spani.count();
+   arr3.clear();
    //Shell
    vector <int> arr4(arr.begin(),arr.end());
    high_resolution_clock::time_point t1sh = high_resolution_clock::now();
@@ -413,6 +462,7 @@ void ejecutarCarreraAlgoritmos(const vector<int>& arr)//Función para ejecutar u
    duration<double> time_spansh = duration_cast<duration<double>>(t2sh - t1sh);
    //cout << "Shell: " << time_spansh.count() << " seconds."<<endl;
    results["Shell Sort"] = time_spansh.count();
+   arr4.clear();
    //Merge 
    vector <int> arr5(arr.begin(),arr.end());
    high_resolution_clock::time_point t1m = high_resolution_clock::now();
@@ -421,6 +471,7 @@ void ejecutarCarreraAlgoritmos(const vector<int>& arr)//Función para ejecutar u
    duration<double> time_spanm = duration_cast<duration<double>>(t2m - t1m);
    //cout << "Merge: " << time_spanm.count() << " seconds."<<endl;
    results["Merge Sort"] = time_spanm.count();
+   arr5.clear();
    //Quick
    vector <int> arr6(arr.begin(),arr.end());
    int n = arr6.size();
@@ -430,6 +481,7 @@ void ejecutarCarreraAlgoritmos(const vector<int>& arr)//Función para ejecutar u
    duration<double> time_spanq = duration_cast<duration<double>>(t2q - t1q);
    //cout << "Quick: " << time_spanq.count() << " seconds."<<endl;
    results["Quick Sort"] = time_spanq.count();
+   arr6.clear();
    //Heap
    vector <int> arr7(arr.begin(),arr.end());
    high_resolution_clock::time_point t1h = high_resolution_clock::now();
@@ -438,7 +490,7 @@ void ejecutarCarreraAlgoritmos(const vector<int>& arr)//Función para ejecutar u
    duration<double> time_spanh = duration_cast<duration<double>>(t2h - t1h);
    //cout << "Heap: " << time_spanh.count() << " seconds."<<endl;
    results["Heap Sort"] = time_spanh.count();
-
+   arr7.clear();
    int id = 1;
    double minTime = numeric_limits<double>::max();
    string winnerAlgorithm;
@@ -454,7 +506,7 @@ void ejecutarCarreraAlgoritmos(const vector<int>& arr)//Función para ejecutar u
             minTime = value;
             winnerAlgorithm = key;
         }
-        cout << id << ". " << key << ", " << fixed << setprecision(5) << value << endl;
+        cout << id << ". " << key << ", " << fixed << setprecision(7) << value << endl;
         id++;
     }
 
@@ -465,52 +517,53 @@ void ejecutarCarreraAlgoritmos(const vector<int>& arr)//Función para ejecutar u
 
 void ejecutarCarreras()//Función principal para ejecutar todas las carreras de algoritmos en diferentes modos y rangos
 {
-    int rangoMin = 0;
-    int rangoMax = 10;
+    int rangoMin = 1;
+    int rangoMax = 100;
     int op;
-    vector<int> arr = generarConjuntoAleatorio(rangoMin, rangoMax);
-    cout << "Prueba: ";
-    for (int al : arr) 
-    {
-        cout << al << " ";
-    }
-    cout << endl; 
+    //vector<int> arr = generarConjuntoAleatorio(rangoMin, rangoMax); 
+    //vector<int> arr = Conjunto(rangoMin,rangoMax);
     cout << "Carreras de algoritmos" << endl;
     cout << "1. Ascendente." << endl;
     cout << "2. Descendente." << endl;
     cout<<"Opcion elegida:"<<endl;
     cin >> op;
     //cout<<"Opcion elegida:"<<op<<endl;
-    seleccion(arr,op);
+    //seleccion(arr,op);
     cout<<"Carrera por el tablero:"<<endl;
     //Modo 1: Ordenado
     cout<<"Modo 1: Ordenado"<<endl;
-    vector<int> arrOrdenado(arr);
+    vector<int> arrOrdenado = ;
     Ordenado(arrOrdenado,op);
+    cout << "Prueba: ";
+    for (int al : arrOrdenado) 
+    {
+        cout << al << " ";
+    }
+    cout << endl; 
     ejecutarCarreraAlgoritmos(arrOrdenado);
+    arrOrdenado.clear();
     //Modo 2: Inversamente Ordenado
     cout<<"Modo 2: Inversamente Ordenado"<<endl;
     vector<int> arrInverso(arr);
     InversamenteOrdenado(arrInverso,op);
     ejecutarCarreraAlgoritmos(arrInverso);
+    arrInverso.clear();
     //Modo 3: Aleatorio
     cout<<"Modo 3: Aleatorio"<<endl;
     vector<int> arrAleatorio(arr);
     Aleatorio(arrAleatorio);
     ejecutarCarreraAlgoritmos(arrAleatorio);
+    arrAleatorio.clear();
     //Modo 4: Aleatorio Sin Duplicar
     cout<<"Modo 4: Aleatorio Sin Duplicar"<<endl;
     vector<int> arrAleatorioSinDuplicar(arr);
     AleatorioSinDuplicar(arrAleatorioSinDuplicar);
     ejecutarCarreraAlgoritmos(arrAleatorioSinDuplicar);
     //////////////////////////////////////////
-    int rango2min = 50000;
+    int rango2min = 1;
     int rango2max = 70000;
-    vector<int> arr2 = generarConjuntoAleatorio(rango2min,rango2max);
-    cout << "1. Ascendente." << endl;
-    cout << "2. Descendente." << endl;
-    cout<<"Opcion elegida:"<<endl;
-    cin >> op;
+    vector<int> arr2 = Conjunto(rango2min,rango2max);
+    //vector<int> arr2 = generarConjuntoAleatorio(rango2min,rango2max);
     seleccion(arr2,op);
     cout<<"Carrera por los Caminos"<<endl;
     //Modo 1: Ordenado
@@ -534,7 +587,9 @@ void ejecutarCarreras()//Función principal para ejecutar todas las carreras de 
     AleatorioSinDuplicar(arrAleatorioSinDuplicar2);
     ejecutarCarreraAlgoritmos(arrAleatorioSinDuplicar2);
     //////////////////////////////////////////
-
+    int rango3min = 1;
+    int rango3max = 15000;
+    vector<int>arr3(arr);
 
 
 }
@@ -554,114 +609,6 @@ int main()
     }
     cout << endl; 
     */
-
-
-    /*
-    int op;
-    //string opc;    
-    int rangoMin=90000;
-    int rangoMax = 100000; 
-
-    vector<int> arr = generarConjuntoAleatorio(rangoMin,rangoMax);
-    cout<<"Carreras de algoritmos"<<endl;
-    cout<<"1.Ascendente."<<endl;
-    cout<<"2.Descendente."<<endl;
-    cin>>op;
-    seleccion(arr,op);
-    cout<<"Opcion elegida:"<<op<<endl;
-    //prueba ordenado
-    vector <int> arrord(arr.begin(),arr.end());
-    Ordenado(arrord,op);
-    
-
-    ///////////////////////
-    
-    //IMPORTANTE: parte que se encarga de los resultados
-    unordered_map<string, double> results;
-    
-   //Selection
-   vector <int> arr1(arrord.begin(),arrord.end());
-   high_resolution_clock::time_point t1s = high_resolution_clock::now();
-   SelectionSort(arr1);
-   high_resolution_clock::time_point t2s = high_resolution_clock::now();
-   duration<double> time_spans = duration_cast<duration<double>>(t2s - t1s);
-   //cout << "Selection: " << time_spans.count() << " seconds."<<endl;
-   results["Selection Sort"] = time_spans.count();
-   //Bubble 
-   vector <int> arr2(arrord.begin(),arrord.end());
-   high_resolution_clock::time_point t1b = high_resolution_clock::now();
-   BubbleSort(arr2);
-   high_resolution_clock::time_point t2b = high_resolution_clock::now();
-   duration<double> time_spanb = duration_cast<duration<double>>(t2b - t1b);
-   //cout << "Bubble: " << time_spanb.count() << " seconds."<<endl;
-   results["Bubble Sort"] = time_spanb.count();
-   //Insertion 
-   vector <int> arr3(arrord.begin(),arrord.end());
-   high_resolution_clock::time_point t1i = high_resolution_clock::now();
-   InsertionSort(arr3);
-   high_resolution_clock::time_point t2i = high_resolution_clock::now();
-   duration<double> time_spani = duration_cast<duration<double>>(t2i - t1i);
-   //cout << "Insertion: " << time_spani.count() << " seconds."<<endl;
-   results["Insertion Sort"] = time_spani.count();
-   //Shell
-   vector <int> arr4(arrord.begin(),arrord.end());
-   high_resolution_clock::time_point t1sh = high_resolution_clock::now();
-   shellSort(arr4);
-   high_resolution_clock::time_point t2sh = high_resolution_clock::now();
-   duration<double> time_spansh = duration_cast<duration<double>>(t2sh - t1sh);
-   //cout << "Shell: " << time_spansh.count() << " seconds."<<endl;
-   results["Shell Sort"] = time_spansh.count();
-   //Merge 
-   vector <int> arr5(arrord.begin(),arrord.end());
-   high_resolution_clock::time_point t1m = high_resolution_clock::now();
-   MergeSort(arr5);
-   high_resolution_clock::time_point t2m = high_resolution_clock::now();
-   duration<double> time_spanm = duration_cast<duration<double>>(t2m - t1m);
-   //cout << "Merge: " << time_spanm.count() << " seconds."<<endl;
-   results["Merge Sort"] = time_spanm.count();
-   //Quick
-   vector <int> arr6(arrord.begin(),arrord.end());
-   int n = arr6.size();
-   high_resolution_clock::time_point t1q = high_resolution_clock::now();
-   quickSort(arr6,0,n-1);
-   high_resolution_clock::time_point t2q = high_resolution_clock::now();
-   duration<double> time_spanq = duration_cast<duration<double>>(t2q - t1q);
-   //cout << "Quick: " << time_spanq.count() << " seconds."<<endl;
-   results["Quick Sort"] = time_spanq.count();
-   //Heap
-   vector <int> arr7(arrord.begin(),arrord.end());
-   high_resolution_clock::time_point t1h = high_resolution_clock::now();
-   heapSort(arr7);
-   high_resolution_clock::time_point t2h = high_resolution_clock::now();
-   duration<double> time_spanh = duration_cast<duration<double>>(t2h - t1h);
-   //cout << "Heap: " << time_spanh.count() << " seconds."<<endl;
-   results["Heap Sort"] = time_spanh.count();
-
-   int id = 1;
-   double minTime = numeric_limits<double>::max();
-   string winnerAlgorithm;
-
-   // Resultados del algoritmo en cuanto al tiempo
-    for (const auto& pair : results) 
-    {
-        const string& key = pair.first;
-        double value = pair.second;
-
-        if (value < minTime) 
-        {
-            minTime = value;
-            winnerAlgorithm = key;
-        }
-        cout << id << ". " << key << ", " << fixed << setprecision(5) << value << endl;
-        id++;
-    }
-
-    cout << "El algoritmo ganador es: " << winnerAlgorithm << endl; 
-    */
-
-
-   
-   
     return 0;
 }
 
