@@ -22,6 +22,7 @@ using std::chrono::duration;
 using std::chrono::duration_cast;
 
 
+/*
 //////////////
 //BORRAR
 vector<int> Conjunto(int rangoMin, int rangoMax)
@@ -97,7 +98,7 @@ void seleccion(vector<int>& arr, int op)//seleccion de ordenamiento
     }
 }
 //////////////
-
+*/
 
 //NO BORRAR
 /*
@@ -132,27 +133,7 @@ vector<int> Conjuntos(int rangoMin, int rangoMax, int op)
 }
 */
 
-vector<int> Ordenado(int rangoMin, int rangoMax)
-{
-    vector<int> conjunto;
-    for(int i = rangoMin; i <= rangoMax; i++)
-    {
-        conjunto.push_back(i);
-    }
-    return conjunto;
-}
-
-vector<int> InversamenteOrdenado(int rangoMin, int rangoMax)
-{
-    vector<int> conjunto;
-    for(int i = rangoMax; i >= rangoMin; i--)
-    {
-        conjunto.push_back(i);
-    }
-}
-
-
-
+/*
 //////////////
 //BORRAR
 void aleatorio(vector<int>& arr) //set de datos ordenado aleatoriamente
@@ -213,6 +194,45 @@ void inversamenteOrdenado(vector<int>& arr, int op)//set de datos inversamente o
     }
 }
 //////////////
+*/
+vector<int> Ordenado(int rangoMin, int rangoMax)
+{
+    vector<int> conjunto;
+    for(int i = rangoMin; i <= rangoMax; i++)
+    {
+        conjunto.push_back(i);
+    }
+    return conjunto;
+}
+
+vector<int> InversamenteOrdenado(int rangoMin, int rangoMax)
+{
+    vector<int> conjunto;
+    for(int i = rangoMax; i >= rangoMin; i--)
+    {
+        conjunto.push_back(i);
+    }
+    return conjunto;
+}
+
+vector<int> Aleatorio(int rangoMin, int rangoMax)//generar un conjunto aleatorio basado en rangos
+{
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<int> dis(rangoMin, rangoMax);
+
+    int tamano = dis(gen);
+    vector<int> conjunto;
+
+    for(int i = 0; i < tamano; i++)
+    {
+        int elemento = dis(gen);
+        conjunto.push_back(elemento);
+    }
+
+    return conjunto;
+}
+
 
 void SelectionSort(vector<int>& arr) 
 {
@@ -688,12 +708,31 @@ void ejecutarCarreras()//Función principal para ejecutar todas las carreras de 
     }
     */
     cout<<"Carrera por el tablero:"<<endl;
+
     //Modo 1: Ordenado
     //cout<<"Modo 1: "<<modo<<endl;
-    cout<<"Modo 1: Ordenado"<<endl;
     //vector<int> arrOrd_or_Inv = Conjuntos(rangoMin,rangoMax,op);
+
+    cout<<"Modo 1: Ordenado"<<endl;
     vector<int> arrOrd = Ordenado(rangoMin,rangoMax);
     ejecutarCarreraAlgoritmos(arrOrd);
+    arrOrd.clear();
+
+    //Modo 2: Inversamente Ordenado
+    cout<<"Modo 2: Inversamente Ordenado"<<endl;
+    vector<int> arrInvOrd = InversamenteOrdenado(rangoMin,rangoMax);
+    ejecutarCarreraAlgoritmos(arrInvOrd);
+    arrInvOrd.clear();
+
+    //Modo 3: Aleatorio
+    cout<<"Modo 3: Aleatorio"<<endl;
+    vector<int> arrRand = Aleatorio(rangoMin,rangoMax);
+    ejecutarCarreraAlgoritmos(arrRand);
+    arrRand.clear();
+
+    //Modo 4: Aleatorio Sin Duplicar
+    cout<<"Modo 4: Aleatorio Sin Duplicar"<<endl;
+
     /*
     vector<int> arrOrdenado;
     Ordenado(arrOrdenado,op);
