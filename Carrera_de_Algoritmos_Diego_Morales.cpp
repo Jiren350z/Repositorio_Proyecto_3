@@ -99,6 +99,8 @@ void seleccion(vector<int>& arr, int op)//seleccion de ordenamiento
 //////////////
 
 
+//NO BORRAR
+/*
 void Ordenado(vector<int>& arr, int rangoMin, int rangoMax)
 {
     for(int i = rangoMin; i <= rangoMax; i++)
@@ -127,6 +129,26 @@ vector<int> Conjuntos(int rangoMin, int rangoMax, int op)
         Ordenado(conjunto,rangoMin,rangoMax);//se entrega el conjunto contrario
     }
     return conjunto;
+}
+*/
+
+vector<int> Ordenado(int rangoMin, int rangoMax)
+{
+    vector<int> conjunto;
+    for(int i = rangoMin; i <= rangoMax; i++)
+    {
+        conjunto.push_back(i);
+    }
+    return conjunto;
+}
+
+vector<int> InversamenteOrdenado(int rangoMin, int rangoMax)
+{
+    vector<int> conjunto;
+    for(int i = rangoMax; i >= rangoMin; i--)
+    {
+        conjunto.push_back(i);
+    }
 }
 
 
@@ -654,6 +676,7 @@ void ejecutarCarreras()//Función principal para ejecutar todas las carreras de 
     cout << "2. Descendente." << endl;
     cout<<"Opcion elegida:"<<endl;
     cin >> op;
+    /*
     switch (op)
     {
         case 1:
@@ -663,12 +686,14 @@ void ejecutarCarreras()//Función principal para ejecutar todas las carreras de 
             modo = "Ordenado";
         break;
     }
-  
+    */
     cout<<"Carrera por el tablero:"<<endl;
     //Modo 1: Ordenado
-    cout<<"Modo 1: "<<modo<<endl;
-    vector<int> arrOrd_or_Inv = Conjuntos(rangoMin,rangoMax,op);
-    ejecutarCarreraAlgoritmos(arrOrd_or_Inv);
+    //cout<<"Modo 1: "<<modo<<endl;
+    cout<<"Modo 1: Ordenado"<<endl;
+    //vector<int> arrOrd_or_Inv = Conjuntos(rangoMin,rangoMax,op);
+    vector<int> arrOrd = Ordenado(rangoMin,rangoMax);
+    ejecutarCarreraAlgoritmos(arrOrd);
     /*
     vector<int> arrOrdenado;
     Ordenado(arrOrdenado,op);
