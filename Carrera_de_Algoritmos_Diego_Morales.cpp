@@ -15,6 +15,7 @@
 #include <limits>
 #include <ratio>
 #include <chrono>
+#include <set>
 using namespace std;
 using namespace chrono;
 using std::chrono::high_resolution_clock;
@@ -233,6 +234,75 @@ vector<int> Aleatorio(int rangoMin, int rangoMax)//generar un conjunto aleatorio
     return conjunto;
 }
 
+vector<int> AleatorioSinDuplicar(int rangoMin, int rangoMax)
+{
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<int> dis(rangoMin, rangoMax);
+
+    int tamano = dis(gen);
+    vector<int> conjunto;
+
+    set<int> elementos_unicos;
+    for(int i = rangoMin; i <= rangoMax; i++)
+    {
+        elementos_unicos.insert(i);
+    }
+
+    // Verificar si el tamaño total de elementos únicos es menor que el tamaño especificado
+    if (elementos_unicos.size() < tamano)
+    {
+        // Puedes ajustar el tamaño para que sea igual al tamaño de elementos_unicos
+        tamano = elementos_unicos.size();
+    }
+
+    // Tomar el tamaño de elementos aleatorios del conjunto de elementos únicos.
+    while(conjunto.size() < tamano)
+    {
+        int elemento = *next(elementos_unicos.begin(),dis(gen) % elementos_unicos.size());
+        conjunto.push_back(elemento);
+        elementos_unicos.erase(elemento);
+    }
+
+    // Mezclar los elementos del conjunto para obtener un conjunto aleatorio sin duplicados
+    shuffle(conjunto.begin(), conjunto.end(), gen);
+    //shuffle(conjunto.begin(),conjunto.end(),gen);
+
+    return conjunto;
+    
+}
+
+/*
+vector<int> AleatorioSinDuplicar(int rangoMin, int rangoMax)
+{
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<int> dis(rangoMin, rangoMax);
+
+    int tamano = dis(gen);
+    vector<int> conjunto;
+
+    // Utilizamos un conjunto para verificar la unicidad de los elementos generados.
+    set<int> elementos_generados;
+
+    for (int i = 0; i < tamano; i++)
+    {
+        int elemento = dis(gen);
+
+        while (elementos_generados.find(elemento) != elementos_generados.end())
+        {
+            elemento = dis(gen);
+        }
+
+        conjunto.push_back(elemento);
+        elementos_generados.insert(elemento);
+    }
+
+    
+
+    return conjunto;
+}
+*/
 
 void SelectionSort(vector<int>& arr) 
 {
@@ -688,7 +758,7 @@ void ejecutarCarreras()//Función principal para ejecutar todas las carreras de 
     int rangoMin = 1;
     int rangoMax = 100000;
     int op;
-    string modo;
+    //string modo;
     //vector<int> arr = generarConjuntoAleatorio(rangoMin, rangoMax); 
     //vector<int> arr = Conjunto(rangoMin,rangoMax);
     cout << "Carreras de algoritmos" << endl;
@@ -715,23 +785,27 @@ void ejecutarCarreras()//Función principal para ejecutar todas las carreras de 
 
     cout<<"Modo 1: Ordenado"<<endl;
     vector<int> arrOrd = Ordenado(rangoMin,rangoMax);
-    ejecutarCarreraAlgoritmos(arrOrd);
+    //ejecutarCarreraAlgoritmos(arrOrd);
     arrOrd.clear();
 
     //Modo 2: Inversamente Ordenado
     cout<<"Modo 2: Inversamente Ordenado"<<endl;
     vector<int> arrInvOrd = InversamenteOrdenado(rangoMin,rangoMax);
-    ejecutarCarreraAlgoritmos(arrInvOrd);
+    //ejecutarCarreraAlgoritmos(arrInvOrd);
     arrInvOrd.clear();
 
     //Modo 3: Aleatorio
     cout<<"Modo 3: Aleatorio"<<endl;
     vector<int> arrRand = Aleatorio(rangoMin,rangoMax);
-    ejecutarCarreraAlgoritmos(arrRand);
+    //ejecutarCarreraAlgoritmos(arrRand);
     arrRand.clear();
 
     //Modo 4: Aleatorio Sin Duplicar
     cout<<"Modo 4: Aleatorio Sin Duplicar"<<endl;
+    vector<int> arrRandSinD = AleatorioSinDuplicar(rangoMin,rangoMax);
+    //ejecutarCarreraAlgoritmos(arrRandSinD);
+    arrRandSinD.clear();
+
 
     /*
     vector<int> arrOrdenado;
