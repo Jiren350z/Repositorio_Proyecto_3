@@ -927,9 +927,6 @@ void HeapSort(vector<int>& arr, int op)
     }
 }
 
-
-
-/*
 void ejecutarCarreraAlgoritmos(const vector<int>& arr, int op)//Función para ejecutar una carrera de algoritmos en un conjunto de datos
 {
     //IMPORTANTE: parte que se encarga de los resultados
@@ -938,7 +935,7 @@ void ejecutarCarreraAlgoritmos(const vector<int>& arr, int op)//Función para ej
    //Selection
    vector <int> arr1(arr.begin(),arr.end());
    high_resolution_clock::time_point t1s = high_resolution_clock::now();
-   SelectionSort(arr1);
+   SelectionSort(arr1,op);
    high_resolution_clock::time_point t2s = high_resolution_clock::now();
    duration<double> time_spans = duration_cast<duration<double>>(t2s - t1s);
    //cout << "Selection: " << time_spans.count() << " seconds."<<endl;
@@ -953,7 +950,7 @@ void ejecutarCarreraAlgoritmos(const vector<int>& arr, int op)//Función para ej
    //Bubble 
    vector <int> arr2(arr.begin(),arr.end());
    high_resolution_clock::time_point t1b = high_resolution_clock::now();
-   BubbleSort(arr2);
+   BubbleSort(arr2,op);
    high_resolution_clock::time_point t2b = high_resolution_clock::now();
    duration<double> time_spanb = duration_cast<duration<double>>(t2b - t1b);
    //cout << "Bubble: " << time_spanb.count() << " seconds."<<endl;
@@ -967,7 +964,7 @@ void ejecutarCarreraAlgoritmos(const vector<int>& arr, int op)//Función para ej
    //Insertion 
    vector <int> arr3(arr.begin(),arr.end());
    high_resolution_clock::time_point t1i = high_resolution_clock::now();
-   InsertionSort(arr3);    
+   InsertionSort(arr3,op);    
    high_resolution_clock::time_point t2i = high_resolution_clock::now();
    duration<double> time_spani = duration_cast<duration<double>>(t2i - t1i);
    //cout << "Insertion: " << time_spani.count() << " seconds."<<endl;
@@ -981,7 +978,7 @@ void ejecutarCarreraAlgoritmos(const vector<int>& arr, int op)//Función para ej
    //Shell
    vector <int> arr4(arr.begin(),arr.end());
    high_resolution_clock::time_point t1sh = high_resolution_clock::now();
-   shellSort(arr4);
+   shellSort(arr4,op);
    high_resolution_clock::time_point t2sh = high_resolution_clock::now();
    duration<double> time_spansh = duration_cast<duration<double>>(t2sh - t1sh);
    //cout << "Shell: " << time_spansh.count() << " seconds."<<endl;
@@ -995,7 +992,7 @@ void ejecutarCarreraAlgoritmos(const vector<int>& arr, int op)//Función para ej
    //Merge 
    vector <int> arr5(arr.begin(),arr.end());
    high_resolution_clock::time_point t1m = high_resolution_clock::now();
-   MergeSort(arr5);
+   MergeSort(arr5,op);
    high_resolution_clock::time_point t2m = high_resolution_clock::now();
    duration<double> time_spanm = duration_cast<duration<double>>(t2m - t1m);
    //cout << "Merge: " << time_spanm.count() << " seconds."<<endl;
@@ -1007,11 +1004,11 @@ void ejecutarCarreraAlgoritmos(const vector<int>& arr, int op)//Función para ej
     cout << endl; 
    arr5.clear();
    //Quick
-   /*
+   
    vector <int> arr6(arr.begin(),arr.end());
-   int n = arr6.size();
+   //int n = arr6.size();
    high_resolution_clock::time_point t1q = high_resolution_clock::now();
-   QuickSort(arr6,0,n-1);
+   QuickSort(arr6,op);
    high_resolution_clock::time_point t2q = high_resolution_clock::now();
    duration<double> time_spanq = duration_cast<duration<double>>(t2q - t1q);
    //cout << "Quick: " << time_spanq.count() << " seconds."<<endl;
@@ -1025,7 +1022,7 @@ void ejecutarCarreraAlgoritmos(const vector<int>& arr, int op)//Función para ej
    //Heap
    vector <int> arr7(arr.begin(),arr.end());
    high_resolution_clock::time_point t1h = high_resolution_clock::now();
-   heapSort(arr7);
+   HeapSort(arr7,op);
    high_resolution_clock::time_point t2h = high_resolution_clock::now();
    duration<double> time_spanh = duration_cast<duration<double>>(t2h - t1h);
    //cout << "Heap: " << time_spanh.count() << " seconds."<<endl;
@@ -1059,12 +1056,12 @@ void ejecutarCarreraAlgoritmos(const vector<int>& arr, int op)//Función para ej
     
 
 }
-*/
+
 
 void ejecutarCarreras()//Función principal para ejecutar todas las carreras de algoritmos en diferentes modos y rangos
 {
     int rangoMin = 1;
-    int rangoMax = 100;
+    int rangoMax = 100000;
     int op;
     //string modo;
     //vector<int> arr = generarConjuntoAleatorio(rangoMin, rangoMax); 
@@ -1093,34 +1090,25 @@ void ejecutarCarreras()//Función principal para ejecutar todas las carreras de 
 
     cout<<"Modo 1: Ordenado"<<endl;
     vector<int> arrOrd = Ordenado(rangoMin,rangoMax);
-    //ejecutarCarreraAlgoritmos(arrOrd);
-   
-
+    ejecutarCarreraAlgoritmos(arrOrd,op);
     arrOrd.clear();
 
     //Modo 2: Inversamente Ordenado
     cout<<"Modo 2: Inversamente Ordenado"<<endl;
     vector<int> arrInvOrd = InversamenteOrdenado(rangoMin,rangoMax);
-    //ejecutarCarreraAlgoritmos(arrInvOrd);
-  
-
+    ejecutarCarreraAlgoritmos(arrInvOrd,op);
     arrInvOrd.clear();
 
     //Modo 3: Aleatorio
     cout<<"Modo 3: Aleatorio"<<endl;
     vector<int> arrRand = Aleatorio(rangoMin,rangoMax);
-    //ejecutarCarreraAlgoritmos(arrRand);
-   
-
-
+    ejecutarCarreraAlgoritmos(arrRand,op);
     arrRand.clear();
 
     //Modo 4: Aleatorio Sin Duplicar
     cout<<"Modo 4: Aleatorio Sin Duplicar"<<endl;
     vector<int> arrRandSinD = AleatorioSinDuplicar(rangoMin,rangoMax);
-    //ejecutarCarreraAlgoritmos(arrRandSinD);
-    
-
+    ejecutarCarreraAlgoritmos(arrRandSinD,op);
     arrRandSinD.clear();
 
 
