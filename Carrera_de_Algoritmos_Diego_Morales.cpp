@@ -99,7 +99,7 @@ vector<int> AleatorioSinDuplicar(int rangoMin, int rangoMax)//Set de datos Aleat
     
 }
 
-//7 Algoritmos de ordenamiento
+//7 Algoritmos de Ordenamiento
 void SelectionSort(vector<int>& arr, int op)
 {
     int n = arr.size();
@@ -115,7 +115,7 @@ void SelectionSort(vector<int>& arr, int op)
             }
         }
 
-        // Realizar el intercambio si el mínimo no es el elemento actual
+        // Realizar el intercambio si el minimo no es el elemento actual
         if (minIndex != i)
         {
             swap(arr[i], arr[minIndex]);
@@ -148,7 +148,7 @@ void InsertionSort(vector<int>& arr, int op)
         key = arr[i];
         j = i - 1;
 
-        // Modificar la condición de comparación en el bucle while
+        // Modificar la condicion de comparación en el bucle while
         while (j >= 0 && (op == 2 ? arr[j] < key : arr[j] > key))
         {
             arr[j + 1] = arr[j];
@@ -169,7 +169,7 @@ void shellSort(vector<int>& arr, int op)
         {
             int temp = arr[i];
             int j = i;
-            // Modificar la condición de comparación en el bucle while
+            // Modificar la condición de comparacion en el bucle while
             while (j >= gap && (op == 2 ? arr[j - gap] < temp : arr[j - gap] > temp))
             {
                 arr[j] = arr[j - gap];
@@ -319,7 +319,7 @@ void QuickSort(vector<int>& arr, int op)
     int start = 0;
     int end = arr.size() - 1;
 
-    // Ajustamos el valor del parámetro op al invertirlo (1->2, 2->1) al llamar quickSort
+    // Ajuste del valor del parámetro op al invertirlo (1->2, 2->1) al llamar quickSort
     int adjustedOp = (op == 1) ? 2 : 1;
     // Llamada a la función auxiliar quickSort con los índices iniciales
     quickSort(arr, start, end, op);
@@ -385,7 +385,18 @@ void ejecutarCarreraAlgoritmos(const vector<int>& arr, int op)//Función para ej
 {
     //IMPORTANTE: parte que se encarga de almacenar los resultados
     unordered_map<string, double> results;
-    
+
+            //en cada algoritmo se hace una copia del vector original,
+           //exclusivo para cada algoritmo para que todos trabajen con el mismo arreglo
+          //usando high_resolution_clock::time_point t1s = high_resolution_clock::now();
+         //se saca tanto el timepo inicial como el final de la demora de cada algoritmo
+        //luego la diferencia se almacena en: 
+       //duration<double> "variable tiempo de cada algoritmo" = duration_cast<duration<double>>(t2s - t1s);
+      //y por ultimo se guardan los resultados en el mapa usando: 
+     //results["Algorritmo Sort"] = "variable tiempo de cada algoritmo".count();
+    //despues se libera el espacio ocupado por la copia del algoritmo usando arrcopia.clear();
+   //esto se repite en los 7 algoritmos.
+
    //Selection
    vector <int> arr1(arr.begin(),arr.end());
    high_resolution_clock::time_point t1s = high_resolution_clock::now();
@@ -460,7 +471,7 @@ void ejecutarCarreraAlgoritmos(const vector<int>& arr, int op)//Función para ej
    double minTime = numeric_limits<double>::max();
    string winnerAlgorithm;
 
-   // Resultados del algoritmo en cuanto al tiempo
+    // Resultados del algoritmo en cuanto al tiempo
     for (const auto& pair : results) 
     {
         const string& key = pair.first;
@@ -484,30 +495,18 @@ void ejecutarCarreras()//Función principal para ejecutar todas las carreras de 
 {
     
     int op;
-    //string modo;
-    //vector<int> arr = generarConjuntoAleatorio(rangoMin, rangoMax); 
-    //vector<int> arr = Conjunto(rangoMin,rangoMax);
     cout << "Carreras de algoritmos" << endl;
     cout << "1. Ascendente." << endl;
     cout << "2. Descendente." << endl;
     cout<<"Opcion elegida:"<<endl;
     cin >> op;
     
-    
-    /*
-    switch (op)
-    {
-        case 1:
-            modo = "Inversamente Ordenado";
-        break;
-        case 2:
-            modo = "Ordenado";
-        break;
-    }
-    */
-    //Modo 1: Ordenado
-    //cout<<"Modo 1: "<<modo<<endl;
-    //vector<int> arrOrd_or_Inv = Conjuntos(rangoMin,rangoMax,op);
+         //inicio de la carrera de algoritmos
+        //primero se definen los rangos
+       //despues se crea un vector copia para cada set de datos
+      //despues ese vector se pasa a la funcion con los 7 algoritmos
+     //se limpia la memoria utilizada por el vector copia
+    //se repite el proceso hasta 3 veces
 
     int rangoMin = 1;
     int rangoMax = 100000;
