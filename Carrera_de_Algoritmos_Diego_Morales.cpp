@@ -22,85 +22,6 @@ using std::chrono::high_resolution_clock;
 using std::chrono::duration;
 using std::chrono::duration_cast;
 
-
-/*
-//////////////
-//BORRAR
-vector<int> Conjunto(int rangoMin, int rangoMax)
-{
-    vector<int> conjunto;
-    srand(time(0)); //Inicializar la semilla aleatoria
-
-    for (int i = rangoMin; i <= rangoMax; i++)
-    {
-        conjunto.push_back(i);
-    }
-
-                                            
-    for (int i = 0; i < conjunto.size(); i++)//Mezclar el conjunto de forma aleatoria
-    {
-        int randomIndex = std::rand() % conjunto.size();
-        swap(conjunto[i], conjunto[randomIndex]);
-    }
-
-    return conjunto;
-}
-//BORRAR
-vector<int> conjunto(int rangoMin, int rangoMax)
-{
-    vector<int> conjunto;
-    for(int i = rangoMin; i <= rangoMax; i++)
-    {
-        conjunto.push_back(i);
-    }
-    return conjunto;
-}
-//BORRAR
-vector<int> generarConjuntoAleatorio(int rangoMin, int rangoMax) //generar un conjunto aleatorio basado en rangos
-{
-    random_device rd;
-    mt19937 gen(rd());
-    uniform_int_distribution<int> dis(0, 1000000); //numeros que van al tamaño
-    uniform_int_distribution<int> dis2(rangoMin,rangoMax); //generador de tamaño
-
-    //int tamano = dis(gen);
-    int tamano = dis2(gen);
-    vector<int> conjunto;
-
-    for(int i = 0; i < tamano; i++)
-    {
-        
-        int elemento = dis(gen);
-        conjunto.push_back(elemento);
-        
-    }
-
-    return conjunto;
-}
-//BORRAR
-bool compare(int a, int b) //comparacion de dos elementos para orden descendente
-{
-    return a > b;  // Orden descendente
-}
-//BORRAR
-void seleccion(vector<int>& arr, int op)//seleccion de ordenamiento
-{
-    switch (op)
-    {
-        case 1:
-            //ordenado de forma ascendente
-            sort(arr.begin(), arr.end()); 
-        break;
-        case 2:
-            //ordenado de forma descendente
-            sort(arr.begin(), arr.end(), compare);
-        break;
-            
-    }
-}
-//////////////
-*/
-
 //NO BORRAR
 /*
 void Ordenado(vector<int>& arr, int rangoMin, int rangoMax)
@@ -132,69 +53,6 @@ vector<int> Conjuntos(int rangoMin, int rangoMax, int op)
     }
     return conjunto;
 }
-*/
-
-/*
-//////////////
-//BORRAR
-void aleatorio(vector<int>& arr) //set de datos ordenado aleatoriamente
-{
-    random_device rd;
-    mt19937 gen(rd());
-    shuffle(arr.begin(), arr.end(), gen);
-}
-//BORRAR
-void aleatorioSinDuplicar(vector<int>& arr)//set de datos ordenado aleatoriamente sin duplicados
-{
-    random_device rd;
-    mt19937 gen(rd());
-
-    set<int> elementos;
-    vector<int> resultado;
-    
-    for (int i = arr.size() - 1; i >= 0; --i) 
-    {
-        uniform_int_distribution<int> dis(0, i);
-        int j = dis(gen);
-        swap(arr[i], arr[j]);
-        elementos.insert(arr[i]);
-    }
-    for (int elemento : arr) 
-    {
-        if (elementos.count(elemento) > 0) 
-        {
-            resultado.push_back(elemento);
-            elementos.erase(elemento);
-        }
-    }
-    arr = resultado;
-    
-}
-//BORRAR
-void ordenado(vector<int>& arr, int op)//set de datos ordenado
-{
-    if(op == 2)
-    {
-        sort(arr.begin(), arr.end()); // Ordenar de forma ascendente
-    }
-    else if (op == 1)
-    {
-
-    }
-}
-//BORRAR
-void inversamenteOrdenado(vector<int>& arr, int op)//set de datos inversamente ordenado
-{
-    if(op == 1)
-    {
-        sort(arr.rbegin(),arr.rend());// Ordenar de forma descendente
-    }
-    else
-    {
-        sort(arr.rbegin(),arr.rend());// Ordenar de forma descendente
-    }
-}
-//////////////
 */
 
 //Conjuntos
@@ -274,57 +132,6 @@ vector<int> AleatorioSinDuplicar(int rangoMin, int rangoMax)
     
 }
 
-/*
-vector<int> AleatorioSinDuplicar(int rangoMin, int rangoMax)
-{
-    random_device rd;
-    mt19937 gen(rd());
-    uniform_int_distribution<int> dis(rangoMin, rangoMax);
-
-    int tamano = dis(gen);
-    vector<int> conjunto;
-
-    // Utilizamos un conjunto para verificar la unicidad de los elementos generados.
-    set<int> elementos_generados;
-
-    for (int i = 0; i < tamano; i++)
-    {
-        int elemento = dis(gen);
-
-        while (elementos_generados.find(elemento) != elementos_generados.end())
-        {
-            elemento = dis(gen);
-        }
-
-        conjunto.push_back(elemento);
-        elementos_generados.insert(elemento);
-    }
-
-    
-
-    return conjunto;
-}
-*/
-
-/*
-void SelectionSort(vector<int>& arr, int op) 
-{
-    int n = arr.size();
-    for (int i = 0; i < n ; ++i) 
-    {
-        for (int j = i; j < n ; ++j) 
-        {
-            if (arr[j] < arr[i]) 
-            {
-                int temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
-            }
-        }
-    }
-}
-*/
-
 void SelectionSort(vector<int>& arr, int op)
 {
     int n = arr.size();
@@ -348,23 +155,6 @@ void SelectionSort(vector<int>& arr, int op)
     }
 }
 
-/*
-void BubbleSort(vector<int>& arr)
-{
-    int n = arr.size();
-    for(int i = 0; i < n - 1; i++)
-    {
-        for(int j = 0; j < n - i - 1; j++)
-        {
-            if(arr[j] > arr[j + 1])
-            {
-                swap(arr[j], arr[j + 1]);
-            }
-        }
-    }
-}
-*/
-
 void BubbleSort(vector<int>& arr, int op)
 {
     int n = arr.size();
@@ -380,38 +170,6 @@ void BubbleSort(vector<int>& arr, int op)
         }
     }
 }
-
-/*
-void InsertionSort(vector<int>& arr)
-{
-    int n = arr.size();
-    int i, key, j;
-    for (i = 1; i < n; i++) 
-    {
-        key = arr[i];
-        j = i - 1;
-        while (j >= 0 && arr[j] > key) 
-        {
-            arr[j + 1] = arr[j];
-            j = j - 1;
-        }
-        arr[j + 1] = key;
-    }
-    
-    for(int i = 1; i < n; i++)
-    {
-        int key = arr[i];
-        int j = i - 1;
-        while(j >= 0 && arr[j] > key)
-        {
-            arr[j + 1] = arr[j];
-            j--;
-        }
-        arr[j + 1] = key;
-    }
-    
-}
-*/
 
 void InsertionSort(vector<int>& arr, int op)
 {
@@ -431,30 +189,6 @@ void InsertionSort(vector<int>& arr, int op)
         arr[j + 1] = key;
     }
 }
-
-/*
-void shellSort(vector<int>& arr) 
-{
-    int n = arr.size();
-    int gap = n / 2;
-
-    while (gap > 0) 
-    {
-        for (int i = gap; i < n; i++) 
-        {
-            int temp = arr[i];
-            int j = i;
-            while (j >= gap && arr[j - gap] > temp) 
-            {
-                arr[j] = arr[j - gap];
-                j -= gap;
-            }
-            arr[j] = temp;
-        }
-        gap /= 2;
-    }
-}
-*/
 
 void shellSort(vector<int>& arr, int op) 
 {
@@ -478,87 +212,6 @@ void shellSort(vector<int>& arr, int op)
         gap /= 2;
     }
 }
-
-/*
-void merge(vector<int>& arr, int left, int middle, int right) //Función para combinar dos subarreglos ordenados en un solo arreglo ordenado
-{
-    int n1 = middle - left + 1;
-    int n2 = right - middle;
-
-    //Crear arreglos temporales para los subarreglos izquierdo y derecho
-    vector<int> leftArr(n1);
-    vector<int> rightArr(n2);
-
-    //Copiar los elementos a los arreglos temporales
-    for (int i = 0; i < n1; i++) 
-    {
-        leftArr[i] = arr[left + i];
-    }
-    for (int j = 0; j < n2; j++) 
-    {
-        rightArr[j] = arr[middle + 1 + j];
-    }
-
-                        //Combinar los arreglos temporales en uno solo en orden ascendente
-    int i = 0;         //indice inicial del subarreglo izquierdo
-    int j = 0;        //indice inicial del subarreglo derecho
-    int k = left;   //indice inicial del subarreglo combinado
-
-    while (i < n1 && j < n2) 
-    {
-        if (leftArr[i] <= rightArr[j]) 
-        {
-            arr[k] = leftArr[i];
-            i++;
-        } 
-        else 
-        {
-            arr[k] = rightArr[j];
-            j++;
-        }
-        k++;
-    }
-
-    //Copiar los elementos restantes del subarreglo izquierdo (si los hay)
-    while (i < n1) 
-    {
-        arr[k] = leftArr[i];
-        i++;
-        k++;
-    }
-
-    //Copiar los elementos restantes del subarreglo derecho (si los hay)
-    while (j < n2) 
-    {
-        arr[k] = rightArr[j];
-        j++;
-        k++;
-    }
-}
-*/
-
-/*
-void MergeSort(vector<int>& arr, int left = 0, int right = -1) //Función recursiva para dividir y ordenar el arreglo en subarreglos más pequeños
-{
-    if (right == -1) 
-    {
-        right = arr.size() - 1;
-    }
-    if (left < right) 
-    {
-        int middle = left + (right - left) / 2;
-
-        // Ordenar el subarreglo izquierdo
-        MergeSort(arr, left, middle);
-
-        // Ordenar el subarreglo derecho
-        MergeSort(arr, middle + 1, right);
-
-        // Combinar los subarreglos ordenados
-        merge(arr, left, middle, right);
-    }
-}
-*/
 
 void merge(vector<int>& arr, int left, int middle, int right, int op) //Función para combinar dos subarreglos ordenados en un solo arreglo ordenado
 {
@@ -637,70 +290,6 @@ void MergeSort(vector<int>& arr, int op, int left = 0, int right = -1) //Funció
     }
 }
 
-/*
-int partition(vector<int>& arr, int start, int end)
-{
- 
-    int pivot = arr[start];
- 
-    int count = 0;
-    for (int i = start + 1; i <= end; i++) 
-    {
-        if (arr[i] <= pivot)
-        {
-            count++;
-        }
-            
-    }
- 
-    // Giving pivot element its correct position
-    int pivotIndex = start + count;
-    swap(arr[pivotIndex], arr[start]);
- 
-    // Sorting left and right parts of the pivot element
-    int i = start, j = end;
- 
-    while (i < pivotIndex && j > pivotIndex) 
-    {
- 
-        while (arr[i] <= pivot) 
-        {
-            i++;
-        }
- 
-        while (arr[j] > pivot) 
-        {
-            j--;
-        }
- 
-        if (i < pivotIndex && j > pivotIndex) 
-        {
-            swap(arr[i++], arr[j--]);
-        }
-    }
- 
-    return pivotIndex;
-}
-
-void quickSort(vector<int>& arr, int start, int end)
-{
- 
-    // base case
-    if (start >= end)
-    {
-        return;
-    }
-    // partitioning the array
-    int p = partition(arr, start, end);
- 
-    // Sorting the left part
-    quickSort(arr, start, p - 1);
- 
-    // Sorting the right part
-    quickSort(arr, p + 1, end);
-}
-*/
-
 int medianOfThree(vector<int>& arr, int start, int end)
 {
     int mid = start + (end - start) / 2;
@@ -721,48 +310,7 @@ int medianOfThree(vector<int>& arr, int start, int end)
     // El pivote ahora está en la posición del elemento central
     return mid;
 }
-/*
-int partition(vector<int>& arr, int start, int end, int op)
-{
-    int pivot = arr[start];
-    int count = 0;
 
-    for (int i = start + 1; i <= end; i++)
-    {
-        if (op == 1 ? arr[i] <= pivot : arr[i] > pivot)
-        {
-            count++;
-        }
-    }
-
-    int pivotIndex = start + count;
-    swap(arr[pivotIndex], arr[start]);
-
-    int i = start + 1, j = end;
-
-    while (i <= j) // Ajustamos la condición del bucle while
-    {
-        while (i <= end && (op == 1 ? arr[i] <= pivot : arr[i] > pivot)) // Ajustamos la condición
-        {
-            i++;
-        }
-
-        while (j > start && (op == 1 ? arr[j] > pivot : arr[j] <= pivot)) // Ajustamos la condición
-        {
-            j--;
-        }
-
-        if (i < j) // Ajustamos la condición para realizar el intercambio
-        {
-            swap(arr[i++], arr[j--]);
-        }
-    }
-
-    swap(arr[start], arr[j]);
-
-    return j;
-}
-*/
 int partition(vector<int>& arr, int start, int end, int op)
 {
     int pivotIndex = medianOfThree(arr, start, end);
@@ -808,68 +356,6 @@ void QuickSort(vector<int>& arr, int op)
     // Llamada a la función auxiliar quickSort con los índices iniciales
     quickSort(arr, start, end, op);
 }
-
-/*
-void quickSort(vector<int>& arr, int start, int end, int op)
-{
-    if (start >= end)
-    {
-        return;
-    }
-
-    int p = partition(arr, start, end, op);
-
-    quickSort(arr, start, p - 1, op);
-    quickSort(arr, p + 1, end, op);
-}
-*/
-
-/*
-void siftDown(vector<int>& arr, int n, int i) //Función para realizar el ajuste descendente (sift-down) en un subárbol
-{
-    int largest = i;            //inicialmente, asumimos que el nodo actual es el más grande
-    int left = 2 * i + 1;      //indice del hijo izquierdo
-    int right = 2 * i + 2;    //indice del hijo derecho
-
-    //Si el hijo izquierdo es más grande que la raíz
-    if (left < n && arr[left] > arr[largest]) 
-    {
-        largest = left;
-    }
-
-    // Si el hijo derecho es más grande que el más grande encontrado hasta ahora
-    if (right < n && arr[right] > arr[largest]) 
-    {
-        largest = right;
-    }
-
-    // Si el más grande no es la raíz actual, realizar el intercambio y continuar ajustando descendente
-    if (largest != i) 
-    {
-        swap(arr[i], arr[largest]);
-        siftDown(arr, n, largest);
-    }
-}
-*/
-/*
-void heapSort(vector<int>& arr) //Función para ordenar el arreglo utilizando Heap Sort
-{
-    int n = arr.size();
-
-    // Construir el heap (reorganizar el arreglo)
-    for (int i = n / 2 - 1; i >= 0; i--) 
-    {
-        siftDown(arr, n, i);
-    }
-
-    // Extraer elementos uno por uno desde el heap y colocarlos al final del arreglo ordenado
-    for (int i = n - 1; i > 0; i--) 
-    {
-        swap(arr[0], arr[i]);
-        siftDown(arr, i, 0);
-    }
-}
-*/
 
 void siftDown(vector<int>& arr, int n, int i, int op)
 {
@@ -1112,65 +598,7 @@ void ejecutarCarreras()//Función principal para ejecutar todas las carreras de 
     arrRandSinD.clear();
 
 
-    /*
-    vector<int> arrOrdenado;
-    Ordenado(arrOrdenado,op);
-    cout << "Prueba: ";
-    ejecutarCarreraAlgoritmos(arrOrdenado);
-    arrOrdenado.clear();
-    //Modo 2: Inversamente Ordenado
-    cout<<"Modo 2: Inversamente Ordenado"<<endl;
-    vector<int> arrInverso(arr);
-    InversamenteOrdenado(arrInverso,op);
-    ejecutarCarreraAlgoritmos(arrInverso);
-    arrInverso.clear();
-    //Modo 3: Aleatorio
-    cout<<"Modo 3: Aleatorio"<<endl;
-    vector<int> arrAleatorio(arr);
-    Aleatorio(arrAleatorio);
-    ejecutarCarreraAlgoritmos(arrAleatorio);
-    arrAleatorio.clear();
-    //Modo 4: Aleatorio Sin Duplicar
-    cout<<"Modo 4: Aleatorio Sin Duplicar"<<endl;
-    vector<int> arrAleatorioSinDuplicar(arr);
-    AleatorioSinDuplicar(arrAleatorioSinDuplicar);
-    ejecutarCarreraAlgoritmos(arrAleatorioSinDuplicar);
-    */
-    //////////////////////////////////////////
-
-    /*
-    int rango2min = 1;
-    int rango2max = 70000;
-    vector<int> arr2 = Conjunto(rango2min,rango2max);
-    //vector<int> arr2 = generarConjuntoAleatorio(rango2min,rango2max);
-    seleccion(arr2,op);
-    cout<<"Carrera por los Caminos"<<endl;
-    //Modo 1: Ordenado
-    cout<<"Modo 1: Ordenado"<<endl;
-    vector<int> arrOrdenado2(arr2);
-    Ordenado(arrOrdenado2,op);
-    ejecutarCarreraAlgoritmos(arrOrdenado2);
-    //Modo 2: Inversamente Ordenado
-    cout<<"Modo 2: Inversamente Ordenado"<<endl;
-    vector<int> arrInverso2(arr2);
-    InversamenteOrdenado(arrInverso2,op);
-    ejecutarCarreraAlgoritmos(arrInverso2);
-    //Modo 3: Aleatorio
-    cout<<"Modo 3: Aleatorio"<<endl;
-    vector<int> arrAleatorio2(arr2);
-    Aleatorio(arrAleatorio2);
-    ejecutarCarreraAlgoritmos(arrAleatorio2);
-    //Modo 4: Aleatorio Sin Duplicar
-    cout<<"Modo 4: Aleatorio Sin Duplicar"<<endl;
-    vector<int> arrAleatorioSinDuplicar2(arr2);
-    AleatorioSinDuplicar(arrAleatorioSinDuplicar2);
-    ejecutarCarreraAlgoritmos(arrAleatorioSinDuplicar2);
-    //////////////////////////////////////////
-    int rango3min = 1;
-    int rango3max = 15000;
-    vector<int>arr3(arr);
-    */
-
+    
 }
 
 int main()
