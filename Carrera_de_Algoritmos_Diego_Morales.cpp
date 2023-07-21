@@ -23,7 +23,7 @@ using std::chrono::duration;
 using std::chrono::duration_cast;
 
 //Conjuntos
-vector<int> Ordenado(int rangoMin, int rangoMax)
+vector<int> Ordenado(int rangoMin, int rangoMax)//Set de datos Ordenado
 {
     vector<int> conjunto;
     for(int i = rangoMin; i <= rangoMax; i++)
@@ -33,7 +33,7 @@ vector<int> Ordenado(int rangoMin, int rangoMax)
     return conjunto;
 }
 
-vector<int> InversamenteOrdenado(int rangoMin, int rangoMax)
+vector<int> InversamenteOrdenado(int rangoMin, int rangoMax)//Set de datos Inversamente Ordenado
 {
     vector<int> conjunto;
     for(int i = rangoMax; i >= rangoMin; i--)
@@ -43,7 +43,7 @@ vector<int> InversamenteOrdenado(int rangoMin, int rangoMax)
     return conjunto;
 }
 
-vector<int> Aleatorio(int rangoMin, int rangoMax)//generar un conjunto aleatorio basado en rangos
+vector<int> Aleatorio(int rangoMin, int rangoMax)//Set de datos Aleatorio
 {
     random_device rd;
     mt19937 gen(rd());
@@ -61,7 +61,7 @@ vector<int> Aleatorio(int rangoMin, int rangoMax)//generar un conjunto aleatorio
     return conjunto;
 }
 
-vector<int> AleatorioSinDuplicar(int rangoMin, int rangoMax)
+vector<int> AleatorioSinDuplicar(int rangoMin, int rangoMax)//Set de datos Aleatorio sin Duplicar
 {
     random_device rd;
     mt19937 gen(rd());
@@ -99,6 +99,7 @@ vector<int> AleatorioSinDuplicar(int rangoMin, int rangoMax)
     
 }
 
+//7 Algoritmos de ordenamiento
 void SelectionSort(vector<int>& arr, int op)
 {
     int n = arr.size();
@@ -257,7 +258,7 @@ void MergeSort(vector<int>& arr, int op, int left = 0, int right = -1) //Funció
     }
 }
 
-int medianOfThree(vector<int>& arr, int start, int end)
+int medianOfThree(vector<int>& arr, int start, int end)//funcion auxiliar que sirve para el pivote
 {
     int mid = start + (end - start) / 2;
     if (arr[start] > arr[mid])
