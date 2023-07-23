@@ -148,7 +148,7 @@ void InsertionSort(vector<int>& arr, int op)
         key = arr[i];
         j = i - 1;
 
-        // Modificar la condicion de comparación en el bucle while
+        // Modificar la condicion de comparacion en el bucle while
         while (j >= 0 && (op == 2 ? arr[j] < key : arr[j] > key))
         {
             arr[j + 1] = arr[j];
@@ -494,13 +494,14 @@ void ejecutarCarreraAlgoritmos(const vector<int>& arr, int op)//Función para ej
 void ejecutarCarreras()//Función principal para ejecutar todas las carreras de algoritmos en diferentes modos y rangos
 {
     
-    int op;
+    int op; //variable que permite elegir el modo de ordenamiento de los 7 algoritmos
     cout << "Carreras de algoritmos" << endl;
     cout << "1. Ascendente." << endl;
     cout << "2. Descendente." << endl;
     cout<<"Opcion elegida:"<<endl;
     cin >> op;
-    
+          
+          //Explicacion global del funcinamiento general de la funcion   
          //inicio de la carrera de algoritmos
         //primero se definen los rangos
        //despues se crea un vector copia para cada set de datos
@@ -603,20 +604,6 @@ void ejecutarCarreras()//Función principal para ejecutar todas las carreras de 
 
 int main()
 {
-
     ejecutarCarreras();
-
-
-    //impresion para prueba
-    /*
-    cout << "Prueba: ";
-    for (int al : arr) 
-    {
-        cout << al << " ";
-    }
-    cout << endl; 
-    */
     return 0;
 }
-
-
